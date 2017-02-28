@@ -1,0 +1,31 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "browser": true,
+    "mocha": true
+  },
+  "globals": {
+    "React$Element": true,
+    "ReactClass": true,
+    "Event": true,
+    "Promise": true,
+    "Generator": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "no-console": ["error", { allow: ["log", "warn", "error"] }],
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+    "no-unused-vars": ["warn", {"vars": "local", "args": "after-used"}],
+    "max-len": ["warn", 120],
+    "quotes": [2, "single", {"avoidEscape": true, "allowTemplateLiterals": true}],
+    "semi": [2, "never"],
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "no-var": [2],
+    "prefer-const": [1],
+    "no-duplicate-imports": [2],
+    "arrow-body-style": [2, "as-needed"],
+    "arrow-parens": [2, "as-needed"],
+    "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }]
+  }
+}
