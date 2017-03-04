@@ -26,6 +26,7 @@
     "no-duplicate-imports": [2],
     "arrow-body-style": [2, "as-needed"],
     "arrow-parens": [2, "as-needed"],
-    "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }]
+    "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
+    "react/prop-types": 0
   }
 }
