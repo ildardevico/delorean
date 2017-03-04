@@ -6,11 +6,11 @@ export const uploadImage = (uri, image) => {
   return rp.post({
     uri,
     formData: {
-      photo: {
+      file: {
         value: fs.readFileSync(image),
         options: {
           filename: 'photo.gif',
-          contentType: `image/gif`
+          contentType: 'image/gif'
         }
       }
     },
