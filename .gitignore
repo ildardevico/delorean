@@ -1,5 +1,5 @@
 node_modules
-npm_debug.log
+npm-debug.log
 config/index.js
 static/bundle/bundle.js
 static/bundle/bundle.js.map
