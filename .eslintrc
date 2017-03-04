@@ -19,7 +19,7 @@
     "no-unused-vars": ["warn", {"vars": "local", "args": "after-used"}],
     "max-len": ["warn", 120],
     "quotes": [2, "single", {"avoidEscape": true, "allowTemplateLiterals": true}],
-    "semi": [2, "never"],
+    "semi": [2, "always"],
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-var": [2],
     "prefer-const": [1],
