@@ -1,0 +1,41 @@
+.player-container {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 100px;
+  video {
+    width: 100%;
+  }
+  .controls-container {
+    position: relative;
+    top: -50px;
+    opacity: 0;
+    .progress {
+      height: 5px;
+      margin-bottom: 10px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .left, .right {
+        i {
+          margin: 0 8px 0 8px;
+          color: #fff;
+          &:hover {
+            color: #ddd;
+            cursor: pointer;
+          }
+        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

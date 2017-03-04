@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import store from 'store';
 import Layout from 'containers/Layout';
-import Login from 'containers/Login';
+import Player from 'containers/Player';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -14,8 +14,9 @@ export default class App extends Component {
     return (
        <Provider store={store}>
         <Router history={history}>
-          <Route path='/' component={Layout} />
-          <Route path='/login' component={Login} />
+          <Route path='/' component={Layout} >
+            <IndexRoute component={Player} />
+          </Route>
         </Router>
        </Provider>
     );
