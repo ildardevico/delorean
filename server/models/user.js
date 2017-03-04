@@ -1,6 +1,6 @@
-import crypto from 'crypto'
-import uuid from 'node-uuid'
-import { forgotPassword as configLock } from '../config/lock'
+import crypto from 'crypto';
+import uuid from 'node-uuid';
+import { forgotPassword as configLock } from '../config/lock';
 
 
 export default (sequelize, DataTypes) => {
@@ -12,18 +12,9 @@ export default (sequelize, DataTypes) => {
     },
     email: DataTypes.STRING,
     name: DataTypes.STRING,
-    hash: DataTypes.TEXT,
-    salt: DataTypes.TEXT,
-    signupToken: DataTypes.STRING,
-    emailVerified: DataTypes.BOOLEAN,
-    resetToken: DataTypes.STRING,
-    resetTokenExpires: DataTypes.DATE,
-    balance: DataTypes.DOUBLE
+    password: DataTypes.STRING
   }, {
     classMethods: {
-      associate() {
-
-      },
       register(user, password, cb) {
         User.findOne({
           where: {
@@ -32,77 +23,38 @@ export default (sequelize, DataTypes) => {
         })
         .then(existingUser => {
           if (existingUser) {
-            cb(new Error('Existing user'))
-            return
+            cb(new Error('Existing user'));
+            return false;
           }
 
           user.setPassword(password, (err, user) => {
-            if (err) { return cb(err) }
-            user.setActivationKey()
+            if (err) {
+              return cb(err);
+            }
+
             user.save()
             .then(() => cb(null, user))
-            .catch(error => cb(error))
-          })
-        })
-      },
-
-      activate(signupToken, cb) {
-        User.findOne({ where: { signupToken } })
-        .then(user => {
-          if (!user) {
-            cb(new Error('Token expired'))
-            return
-          }
-
-          if (user.emailVerified) {
-            cb(new Error('Token expired'))
-            return
-          }
-          user.emailVerified = true
-          user.signupToken = null
-          user.save()
-          .then(user => cb(null, user))
-        })
-        .catch(err => {
-          cb(new Error('We have troubles with server'))
-        })
+            .catch(error => cb(error));
+          });
+        });
       },
 
       forgotPassword(email, cb) {
         User.findOne({
-          where: { email, emailVerified: 1 } })
+          where: { email }
+        })
         .then(user => {
           if (!user) {
-            cb(new Error('Wrong email'))
-            return
+            cb(new Error('Wrong email'));
+            return false;
           }
-
-          user.setResetKey()
 
           user.save()
-          .then(user => cb(null, user))
+          .then(user => cb(null, user));
         })
         .catch(err => {
-          cb(new Error('We have troubles with serve'))
-        })
-      },
-
-      forgotTokenConfirm(resetToken, cb) {
-        User.findOne({ where: { resetToken } })
-        .then(user => {
-          if (!user) {
-            cb(new Error('Token expired'))
-            return
-          }
-          if (new Date(user.resetTokenExpires) < new Date()) {
-            cb(new Error('Token expired'))
-            return
-          }
-          cb(null, user)
-        })
-        .catch(err => {
-          cb(new Error('We have troubles with server'))
-        })
+          cb(new Error('We have troubles with serve'));
+        });
       },
 
       updatePassword(password, resetToken, cb) {
@@ -131,91 +83,91 @@ export default (sequelize, DataTypes) => {
       }
     },
     instanceMethods: {
-      charge(amount) {
-        const self = this
-        const newBalance = self.get('balance') - amount
-        const m = Math.pow(10, 2)
-        const roundedBalance = Math.round(newBalance * m) / m
-        console.log(`User balance before charge ${self.get('balance')}`)
-        console.log(`Total order cost ${amount}`)
-        console.log(`User balance after charge ${roundedBalance}`)
-        if (roundedBalance < 0) {
-          return Promise.reject('Not enough funds')
-        }
-        return self.set('balance', roundedBalance)
-      },
-      addFunds(amount) {
-        const self = this
-        const oldBalance = self.get('balance')
-        console.log(`@INFO ${self.get('id')} old balance ${oldBalance}`)
-        const newBalance = oldBalance + amount
-        const m = Math.pow(10, 2)
-        const roundedBalance = Math.round(newBalance * m) / m
-        console.log(`@INFO ${self.get('id')} refill amount ${amount}`)
-        global.telegramLog(`@INFO\nuserId:${self.get('id')}\nrefill amount ${amount}\nnew balance ${roundedBalance}`)
-        console.log(`@INFO ${self.get('id')} new balance ${roundedBalance}`)
-        return self.set('balance', roundedBalance)
-      },
-      authenticate(password, cb) {
-        const self = this
-        // prevent to throw error from crypto.pbkdf2
-        if (!this.get('salt')) {
-          cb(null, false, { message: 'No salt value stored' })
-          return
-        }
-        crypto.pbkdf2(password, this.get('salt'), 12000, 128, (err, hashRaw) => {
-          if (err) {
-            cb(err)
-            return
-          }
-          const hash = new Buffer(hashRaw, 'binary').toString('hex')
-          if (hash === self.get('hash') && self.get('emailVerified') === true) {
-            cb(null, self)
-          } else {
-            cb(null, false, { message: 'Incorrect password or email dont verified'})
-          }
-        })
-      },
-
-      setPassword(password, cb) {
-        if (!password) {
-          cb(new Error('Password argument not set!'))
-          return
-        }
-        const self = this
-        crypto.randomBytes(32, (err, buf) => {
-          if (err) {
-            cb(err)
-            return
-          }
-          const salt = buf.toString('hex')
-          crypto.pbkdf2(password, salt, 12000, 128, (err, hashRaw) => {
-            if (err) {
-              cb(err)
-              return
-            }
-            self.set('hash', new Buffer(hashRaw, 'binary').toString('hex'))
-            self.set('salt', salt)
-
-            cb(null, self)
-          })
-        })
-      },
-
-      setActivationKey() {
-        const self = this
-        const token = uuid.v4()
-        self.set('signupToken', token)
-      },
-
-      setResetKey() {
-        const self = this
-        const token = uuid.v4()
-        self.set('resetToken', token)
-        self.set('resetTokenExpires', new Date().valueOf() + (configLock.tokenExpiration * 1000 * 3600))
-      }
+      // charge(amount) {
+      //   const self = this
+      //   const newBalance = self.get('balance') - amount
+      //   const m = Math.pow(10, 2)
+      //   const roundedBalance = Math.round(newBalance * m) / m
+      //   console.log(`User balance before charge ${self.get('balance')}`)
+      //   console.log(`Total order cost ${amount}`)
+      //   console.log(`User balance after charge ${roundedBalance}`)
+      //   if (roundedBalance < 0) {
+      //     return Promise.reject('Not enough funds')
+      //   }
+      //   return self.set('balance', roundedBalance)
+      // },
+      // addFunds(amount) {
+      //   const self = this
+      //   const oldBalance = self.get('balance')
+      //   console.log(`@INFO ${self.get('id')} old balance ${oldBalance}`)
+      //   const newBalance = oldBalance + amount
+      //   const m = Math.pow(10, 2)
+      //   const roundedBalance = Math.round(newBalance * m) / m
+      //   console.log(`@INFO ${self.get('id')} refill amount ${amount}`)
+      //   global.telegramLog(`@INFO\nuserId:${self.get('id')}\nrefill amount ${amount}\nnew balance ${roundedBalance}`)
+      //   console.log(`@INFO ${self.get('id')} new balance ${roundedBalance}`)
+      //   return self.set('balance', roundedBalance)
+      // },
+      // authenticate(password, cb) {
+      //   const self = this
+      //   // prevent to throw error from crypto.pbkdf2
+      //   if (!this.get('salt')) {
+      //     cb(null, false, { message: 'No salt value stored' })
+      //     return
+      //   }
+      //   crypto.pbkdf2(password, this.get('salt'), 12000, 128, (err, hashRaw) => {
+      //     if (err) {
+      //       cb(err)
+      //       return
+      //     }
+      //     const hash = new Buffer(hashRaw, 'binary').toString('hex')
+      //     if (hash === self.get('hash') && self.get('emailVerified') === true) {
+      //       cb(null, self)
+      //     } else {
+      //       cb(null, false, { message: 'Incorrect password or email dont verified'})
+      //     }
+      //   })
+      // },
+      //
+      // setPassword(password, cb) {
+      //   if (!password) {
+      //     cb(new Error('Password argument not set!'))
+      //     return
+      //   }
+      //   const self = this
+      //   crypto.randomBytes(32, (err, buf) => {
+      //     if (err) {
+      //       cb(err)
+      //       return
+      //     }
+      //     const salt = buf.toString('hex')
+      //     crypto.pbkdf2(password, salt, 12000, 128, (err, hashRaw) => {
+      //       if (err) {
+      //         cb(err)
+      //         return
+      //       }
+      //       self.set('hash', new Buffer(hashRaw, 'binary').toString('hex'))
+      //       self.set('salt', salt)
+      //
+      //       cb(null, self)
+      //     })
+      //   })
+      // },
+      //
+      // setActivationKey() {
+      //   const self = this
+      //   const token = uuid.v4()
+      //   self.set('signupToken', token)
+      // },
+      //
+      // setResetKey() {
+      //   const self = this
+      //   const token = uuid.v4()
+      //   self.set('resetToken', token)
+      //   self.set('resetTokenExpires', new Date().valueOf() + (configLock.tokenExpiration * 1000 * 3600))
+      // }
     }
   })
 
-  return User
-}
+  return User;
+};
