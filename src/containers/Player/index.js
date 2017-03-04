@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Controls from './components/Controls';
+import ShareControls from './components/ShareControls';
 import './styles.scss';
 
 class Player extends Component {
@@ -28,9 +29,6 @@ class Player extends Component {
       this.refs.controls.refs.progressbar.updateNow(now);
     });
 
-    video.addEventListener('volumechange', () => {
-
-    });
   }
 
   componentWillUnmount() {
@@ -38,7 +36,6 @@ class Player extends Component {
     video.removeEventListener('pause');
     video.removeEventListener('play');
     video.removeEventListener('timeupdate');
-    video.removeEventListener('volumechange');
   }
 
   play = () => {
@@ -46,7 +43,8 @@ class Player extends Component {
   }
 
   mute = () => {
-    this.refs.video.mute();
+    this.refs.video.muted = !this.refs.video.muted;
+    this.setState({ muted: this.refs.video.muted });
   }
 
   pause = () => {
@@ -67,6 +65,13 @@ class Player extends Component {
     });
   }
 
+  share = () => {
+    this.setState({
+      duration: Math.round(this.refs.video.duration),
+      currentTime: Math.round(this.refs.video.currentTime),
+    });
+    this.setState({ sharing: true });
+  }
 
   render() {
     const src = './video/player.mp4';
@@ -77,24 +82,34 @@ class Player extends Component {
       changeVolume,
       mute,
       expand,
+      share,
      } = this;
-    const { paused, expanded } = this.state;
+    const { paused, expanded, muted, sharing, duration, currentTime } = this.state;
     return (
       <div className={`player-container ${expanded ? 'expanded': ''}`}>
         <video ref='video'>
           <source src={src} />
         </video>
         <div className='controls-container'>
-          <Controls
-           ref='controls'
-           play={play}
-           pause={pause}
-           changeVolume={changeVolume}
-           changeDuration={changeDuration}
-           mute={mute}
-           paused={paused}
-           expand={expand}
-           />
+          {
+            !sharing ?
+            <Controls
+             ref='controls'
+             play={play}
+             share={share}
+             pause={pause}
+             changeVolume={changeVolume}
+             changeDuration={changeDuration}
+             mute={mute}
+             muted={muted}
+             paused={paused}
+             expand={expand}
+             />:
+             <ShareControls
+              duration={duration}
+              currentTime={currentTime}
+              />
+            }
         </div>
       </div>
     );

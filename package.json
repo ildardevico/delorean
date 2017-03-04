@@ -25,6 +25,7 @@
     "express-jwt": "^5.1.0",
     "node-sass": "^4.3.0",
     "nodemon": "^1.11.0",
+    "rc-slider": "^6.1.2",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",

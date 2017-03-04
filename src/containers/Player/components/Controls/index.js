@@ -14,6 +14,8 @@ class Controls extends Component {
       duration,
       currentTime,
       changeDuration,
+      muted,
+      share,
     } = this.props;
     return (
       <div>
@@ -25,13 +27,19 @@ class Controls extends Component {
                   {paused ? 'play_arrow': 'pause'}
                 </i>
             </span>
-            <Volume handler={changeVolume} />
+            <Volume handler={changeVolume} mute={mute} muted={muted}/>
             <span>
               <span>{currentTime}</span>
               <span>{duration}</span>
             </span>
           </div>
           <div className='right'>
+            <span>
+              <i onClick={share} className="material-icons">screen_share</i>
+            </span>
+            <span>
+              <i className="material-icons">audiotrack</i>
+            </span>
             <span onClick={expand}>
               <i className="material-icons">aspect_ratio</i>
             </span>
