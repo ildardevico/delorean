@@ -7,7 +7,7 @@ export default class Test extends Component {
       type: 'gif',
       fileName: 'GoPro.mp4',
       start: 20,
-      duration: 10,
+      duration: 30,
       message: 'test post',
       title: 'Gif'
     }).then(postId => console.log(`Post ID: ${postId}`));
