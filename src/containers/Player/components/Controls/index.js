@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Progress from '../Progress';
+import Volume from '../Volume';
 
 class Controls extends Component {
   render() {
@@ -24,9 +25,7 @@ class Controls extends Component {
                   {paused ? 'play_arrow': 'pause'}
                 </i>
             </span>
-            <span>
-              <i onClick={mute} className="material-icons">volume_up</i>
-            </span>
+            <Volume handler={changeVolume} />
             <span>
               <span>{currentTime}</span>
               <span>{duration}</span>

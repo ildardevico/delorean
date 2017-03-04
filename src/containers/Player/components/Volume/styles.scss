@@ -1,0 +1,98 @@
+.volumerange {
+  display: flex;
+  margin-bottom: 4px;
+
+  input {
+      /*removes default webkit styles*/
+      -webkit-appearance: none;
+      /*fix for FF unable to apply focus style bug */
+      background-color: transparent;
+      /*required for proper track sizing in FF*/
+      transition: width 1s, opacity 1s, transform 1s;
+  }
+  input::-webkit-slider-runnable-track {
+      height: 6px;
+      border: none;
+      border-radius: 3px;
+      outline: none;
+  }
+  input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      border: none;
+      outline: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: rgb(185, 0, 0);
+      margin-top: -4px;
+  }
+  input:focus {
+      outline: none;
+  }
+  input::-webkit-slider-runnable-track {
+    background: #ccc;
+    outline: none;
+  }
+  input:focus::-webkit-slider-runnable-track {
+      background: #ccc;
+      cursor: pointer;
+  }
+
+  input::-moz-range-track {
+      width: 300px;
+      height: 6px;
+      background: #ddd;
+      border: none;
+      border-radius: 3px;
+
+  }
+  input::-moz-range-thumb {
+      border: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: rgb(185, 0, 0);
+  }
+
+  /*hide the outline behind the border*/
+  input:-moz-focusring{
+      outline: 1px solid white;
+      outline-offset: -1px;
+  }
+
+  input::-ms-track {
+      width: 300px;
+      height: 5px;
+
+      /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+      background: transparent;
+
+      /*leave room for the larger thumb to overflow with a transparent border */
+      border-color: transparent;
+      border-width: 6px 0;
+
+      /*remove default tick marks*/
+      color: transparent;
+  }
+  input::-ms-fill-lower {
+      background: transparent;
+      border-radius: 10px;
+  }
+  input::-ms-fill-upper {
+      background: transparent;
+      border-radius: 10px;
+  }
+  input::-ms-thumb {
+      border: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: rgb(185, 0, 0);
+  }
+  input:focus::-ms-fill-lower {
+      background: #888;
+  }
+  input:focus::-ms-fill-upper {
+      background: #ccc;
+  }
+}

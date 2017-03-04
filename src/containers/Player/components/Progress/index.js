@@ -6,17 +6,13 @@ export default class ProgressComponent extends Component {
 
   up = e => {
     if(this.state.drag) {
-      this.setState({
-        drag: false
-      });
+      this.setState({ drag: false });
       this.updateValue(e);
     }
   }
 
   down = e => {
-    this.setState({
-      drag: true
-    });
+    this.setState({ drag: true });
     this.updateValue(e);
   }
 
