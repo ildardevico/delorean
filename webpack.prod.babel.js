@@ -1,4 +1,5 @@
 import webpack from 'webpack'
+import path from 'path'
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -10,6 +11,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
+    root: path.resolve('./src'),
     extensions: ['', '.js', '.jsx', '.json']
   },
   module: {

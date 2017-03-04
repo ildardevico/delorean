@@ -1,4 +1,5 @@
 import webpack from 'webpack'
+import path from 'path'
 const ignore = new webpack.IgnorePlugin(/\.svg$/)
 
 module.exports = {
@@ -9,6 +10,7 @@ module.exports = {
     'webpack/hot/only-dev-server'
   ],
   resolve: {
+    root: path.resolve('./src'),
     extensions: ['', '.js', '.jsx', '.json']
   },
   output: {
