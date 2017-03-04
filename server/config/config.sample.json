@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "development_username",
+    "password": "development_password",
+    "database": "development_database",
+    "host": "development_host",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "production_username",
+    "password": "production_password",
+    "database": "production_database",
+    "host": "production_host",
+    "dialect": "mysql"
+  }
+}
