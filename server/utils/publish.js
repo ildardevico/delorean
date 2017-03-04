@@ -16,7 +16,7 @@ export const toGif = (fileName, startTime, endTime) => {
   const ext = path.extname(fileName);
   const endLastName = `${fileName.slice(0, ext.length + 1)}.gif`;
 
-  const command = `ffmpeg -v warning -ss ${startTime} -t ${endTime} -i ${staticFolder}original/${fileName} -vf scale=600:-1 -gifflags +transdiff -y ${staticFolder}gifs/${endLastName}`;
+  const command = `ffmpeg -v warning -ss ${startTime} -t ${endTime} -i ${staticFolder}original/${fileName} -vf scale=300:-1 -gifflags +transdiff -y ${staticFolder}gifs/${endLastName}`;
   if (shell.exec(command, { silent: false }).code !== 0) {
     shell.echo('Command execution error gif');
     shell.exit(1);
