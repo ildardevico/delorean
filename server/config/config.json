@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "root",
+    "password": "1234",
+    "database": "social_booster",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "",
+    "database": "social_booster",
+    "host": "booster-db",
+    "dialect": "mysql"
+  }
+}
