@@ -2,11 +2,13 @@ import { cut, toGif } from '../utils/publish'
 import { uploadImage } from '../utils/uploadApi'
 
 export const publish = async (req, res) => {
+  console.log(req.body);
   const { fileName, start, duration, uploadUrl, type } = req.body;
 
   switch (type) {
     case 'gif': {
       const path = toGif(fileName, start, duration)
+      console.log(path);
       const vkResponce = await uploadImage(uploadUrl, path)
       console.log(vkResponce);
       break;
