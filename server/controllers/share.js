@@ -2,6 +2,7 @@ import { cut, toGif } from '../utils/publish'
 import { uploadImage } from '../utils/uploadApi'
 
 export const publish = async (req, res) => {
+  console.log(req.body);
   const { fileName, start, duration, uploadUrl, type } = req.body;
 
   switch (type) {

@@ -1,11 +1,14 @@
 import express from 'express';
 import path from 'path';
+import bodyParser from 'body-parser';
+
 import { publicRoutes, userRoutes } from './controllers';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.static('static'));
+app.use(bodyParser.json());
 
 app.use(publicRoutes());
 // app.use(userRoutes());
