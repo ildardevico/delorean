@@ -1,13 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import publishVk from 'utils/publish/vk';
 import Controls from './components/Controls';
 import ShareControls from './components/ShareControls';
 import './styles.scss';
+
+const GIF = 'GIF';
 
 class Player extends Component {
 
   state = {
     paused: true,
+    shareType: GIF,
+  }
+
+  shareHandler = options => {
+    console.log(options)
+    options = {
+      fileName: this.props.fileName,
+      title: this.props.tytle,
+      ...options,
+    };
+    this.setState({
+      spinner: true,
+    });
+    if(this.state.shareType === GIF) {
+      this.loadGif(options).then(() => this.setState({ spinner: false }));
+    } else {
+      this.loadVideo(options).then(() => this.setState({ spinner: false }));
+    }
+  }
+
+  loadGif({ duration, start, fileName, title, message = '' }) {
+    return publishVk({
+      type: 'gif',
+      fileName: fileName || 'player.mp4',
+      start,
+      duration,
+      message,
+      title: title || 'hello-tytle',
+    });
+  }
+
+  loadVideo({ duration, start, fileName, title, message = '' }) {
+    return publishVk({
+      type: 'video',
+      fileName,
+      start,
+      duration,
+      message,
+      title,
+    });
   }
 
   componentDidMount() {
@@ -74,7 +117,6 @@ class Player extends Component {
   }
 
   render() {
-    const src = './video/player.mp4';
     const {
       play,
       pause,
@@ -83,12 +125,14 @@ class Player extends Component {
       mute,
       expand,
       share,
+      shareHandler,
      } = this;
     const { paused, expanded, muted, sharing, duration, currentTime } = this.state;
+    const { src } = this.props;
     return (
       <div className={`player-container ${expanded ? 'expanded': ''}`}>
         <video ref='video'>
-          <source src={src} />
+          <source src={src || './video/original/player.mp4'} />
         </video>
         <div className='controls-container'>
           {
@@ -108,6 +152,7 @@ class Player extends Component {
              <ShareControls
               duration={duration}
               currentTime={currentTime}
+              handler={shareHandler}
               />
             }
         </div>

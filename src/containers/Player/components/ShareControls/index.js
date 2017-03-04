@@ -5,12 +5,18 @@ import 'rc-slider/assets/index.css';
 const MAX_PERIOD = 30;
 export default class ShareControls extends Component {
   state = {}
+
   changePeriod = value => {
     const [ first, second ] = value;
     if((second - first) <= MAX_PERIOD) {
-      this.props.handler(value);
-      this.seetState({ value });
+      this.setState({ value });
     }
+  }
+
+  sharePart = () => {
+    const [ start, duration ] = this.state.value;
+    const message = this.refs.message.value;
+    this.props.handler({ start, duration, message });
   }
 
   render() {
@@ -30,6 +36,8 @@ export default class ShareControls extends Component {
           defaultValue={defaultValue}
           step={1}
         />
+        <input type='text' ref='message' placeholder='Comment' />
+        <a onClick={this.sharePart}>Share</a>
       </div>
     );
   }
