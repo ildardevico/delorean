@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import JWT from 'express-jwt';
 import { secret } from '../config';
-import { test } from './test.controller';
+import { login } from './login';
 
 export function publicRoutes() {
   const router = Router();
-  router.get('/test', test);
+  router.get('/login', login);
   router.get('/health', (req, res) => res.status(200).send('ok'));
   return router;
 }
