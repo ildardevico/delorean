@@ -14,7 +14,11 @@ export default class ShareControls extends Component {
   }
 
   sharePart = () => {
-    const [ start, duration ] = this.state.value;
+    let start = this.props.currentTime;
+    let duration = this.props.duration;
+    if(this.state.value) {
+      [ start, duration ] = this.state.value;
+    }
     const message = this.refs.message.value;
     this.props.handler({ start, duration, message });
   }

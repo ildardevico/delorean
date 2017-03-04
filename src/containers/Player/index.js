@@ -15,7 +15,6 @@ class Player extends Component {
   }
 
   shareHandler = options => {
-    console.log(options)
     options = {
       fileName: this.props.fileName,
       title: this.props.tytle,
@@ -69,7 +68,9 @@ class Player extends Component {
 
     video.addEventListener('timeupdate', () => {
       const now = (video.currentTime/video.duration) * 100;
-      this.refs.controls.refs.progressbar.updateNow(now);
+      if(this.refs.controls.refs.progressbar) {
+        this.refs.controls.refs.progressbar.updateNow(now);
+      }
     });
 
   }
@@ -113,6 +114,7 @@ class Player extends Component {
       duration: Math.round(this.refs.video.duration),
       currentTime: Math.round(this.refs.video.currentTime),
     });
+    this.pause();
     this.setState({ sharing: true });
   }
 
