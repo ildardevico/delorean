@@ -8,6 +8,7 @@ export const publish = async (req, res) => {
   switch (type) {
     case 'gif': {
       const path = toGif(fileName, start, duration)
+      console.log(path);
       const vkResponce = await uploadImage(uploadUrl, path)
       console.log(vkResponce);
       break;
