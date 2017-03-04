@@ -5,23 +5,27 @@ export default class Test extends Component {
   loadGif() {
     publishVk({
       type: 'gif',
-      fileName: 'GoPro.mp4',
+      fileName: 'player.mp4',
       start: 20,
       duration: 30,
       message: 'test post',
       title: 'Gif'
-    }).then(postId => console.log(`Post ID: ${postId}`));
+    })
+    .then(postId => console.log(`Post ID: ${postId}`))
+    .catch(error => console.log('Something wrong!', error));
   }
 
   loadVideo() {
     publishVk({
       type: 'video',
-      fileName: 'GoPro.mp4',
+      fileName: 'player.mp4',
       start: 20,
       duration: 30,
       message: 'test post video',
-      title: 'Gif'
-    }).then(postId => console.log(`Post ID: ${postId}`));
+      title: 'Video'
+    })
+    .then(postId => console.log(`Post ID: ${postId}`))
+    .catch(error => console.log('Something wrong!', error));
   }
 
   render() {
