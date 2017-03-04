@@ -1,10 +1,19 @@
 import express from 'express';
 import path from 'path';
+import api from './api';
+import auth from './auth';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.static('static'));
+
+app.use('/api', api);
+app.use('/auth', auth);
+app.use('/health', (req, res) => res.status(200).send('ok'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('public', 'index.html'));
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('static', 'index.html'));
