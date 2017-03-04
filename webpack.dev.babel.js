@@ -34,4 +34,7 @@ module.exports = {
     ]
   },
   plugins: [ignore],
-}
+  devServer: {
+    historyApiFallback: true
+  }
+};
