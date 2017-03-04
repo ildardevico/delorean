@@ -136,28 +136,29 @@ class Player extends Component {
         <video ref='video'>
           <source src={src || './video/original/player.mp4'} />
         </video>
-        <div className='controls-container'>
           {
             !sharing ?
-            <Controls
-             ref='controls'
-             play={play}
-             share={share}
-             pause={pause}
-             changeVolume={changeVolume}
-             changeDuration={changeDuration}
-             mute={mute}
-             muted={muted}
-             paused={paused}
-             expand={expand}
-             />:
+            <div className='controls-container'>
+              <Controls
+               ref='controls'
+               play={play}
+               share={share}
+               pause={pause}
+               changeVolume={changeVolume}
+               changeDuration={changeDuration}
+               mute={mute}
+               muted={muted}
+               paused={paused}
+               expand={expand}
+               />
+             </div>
+             :
              <ShareControls
               duration={duration}
               currentTime={currentTime}
               handler={shareHandler}
               />
             }
-        </div>
       </div>
     );
   }

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { FormControl } from 'react-bootstrap';
 
-
-export const Input = ({ input, meta: { touched, error }, ...restAttrs }) => {
-  return <div className={`input-wrapper ${touched && error ? 'error-input' : ''}`}>
-    <FormControl {...input} {...restAttrs}/>
-    {touched && error && <span className="error-info">{error}</span>}
-  </div>;
-};
+export class Input extends Component {
+  render() {
+    const props = this.props;
+    return (
+      <div className={`input-wrapper`}>
+        <FormControl {...props} />
+      </div>
+    );
+  }
+}
 
 Input.propTypes = {
   input: React.PropTypes.object,

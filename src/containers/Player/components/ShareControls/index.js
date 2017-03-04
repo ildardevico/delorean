@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Range } from 'rc-slider';
+import { Button } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
+import { Input } from 'components/FormComponents';
 
 const MAX_PERIOD = 30;
 export default class ShareControls extends Component {
@@ -14,8 +16,9 @@ export default class ShareControls extends Component {
   }
 
   sharePart = () => {
-    let start = this.props.currentTime;
-    let duration = this.props.duration;
+    let { duration, currentTime } = this.props;
+    let start = currentTime;
+    duration = duration > (currentTime + MAX_PERIOD) ? currentTime + MAX_PERIOD: duration;
     if(this.state.value) {
       [ start, duration ] = this.state.value;
     }
@@ -40,8 +43,8 @@ export default class ShareControls extends Component {
           defaultValue={defaultValue}
           step={1}
         />
-        <input type='text' ref='message' placeholder='Comment' />
-        <a onClick={this.sharePart}>Share</a>
+        <Input type='text' ref='message' placeholder='Comment' />
+        <Button onClick={this.sharePart} bsStyle='info'>Share</Button>
       </div>
     );
   }
