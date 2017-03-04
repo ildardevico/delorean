@@ -9,9 +9,9 @@
 
 export default function combineEvents(reducers: Object, initialState: mixed): Function {
   return (state = initialState, action) => {
-    if (Reflect.has(reducers, action.type)) {
+    if (reducers.hasOwnProperty(action.type)) {
       return reducers[action.type](state, action);
-    } else if (Reflect.has(reducers, 'default')) {
+    } else if (reducers.hasOwnProperty('default')) {
       return reducers.default(state, action);
     }
     return state;

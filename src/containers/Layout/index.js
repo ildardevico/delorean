@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { increaseCounter } from '../actions/counter'
-import '../styles/main.scss'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { increaseCounter } from './actions';
+import './styles.scss';
 
 
 class Layout extends Component {
@@ -11,12 +11,12 @@ class Layout extends Component {
   }
 
   render() {
-   return (
-    <div className="container">
-      Layout
-      <div>{this.props.counter}</div>
-    </div>
-   )
+    return (
+      <div className="container">
+        Layout
+        <div>{this.props.counter}</div>
+      </div>
+    );
   }
 }
 
@@ -26,4 +26,4 @@ export default connect(
   dispatch => ({
     increaseCounter: count => dispatch(increaseCounter(count))
   })
-)(Layout)
+)(Layout);
