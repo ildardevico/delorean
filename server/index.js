@@ -8,10 +8,10 @@ const PORT = process.env.PORT || 4000;
 app.use(express.static('static'));
 
 app.use(publicRoutes());
-app.use(userRoutes());
+// app.use(userRoutes());
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve('public', 'index.html'));
+  res.sendFile(path.resolve('static', 'index.html'));
 });
 
 // catch 404 and forward to error handler
