@@ -1,7 +1,5 @@
 node_modules
 npm-debug.log
-server/config/index.js
-server/config/config.json
 static/bundle/bundle.js
 static/bundle/bundle.js.map
 .idea
