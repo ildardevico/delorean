@@ -33,9 +33,6 @@ class Controls extends Component {
             </span>
           </div>
           <div className='right'>
-            <span>
-              <i className="material-icons">settings</i>
-            </span>
             <span onClick={expand}>
               <i className="material-icons">aspect_ratio</i>
             </span>

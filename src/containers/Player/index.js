@@ -4,6 +4,7 @@ import Controls from './components/Controls';
 import './styles.scss';
 
 class Player extends Component {
+
   state = {
     paused: true,
   }
@@ -15,17 +16,16 @@ class Player extends Component {
         paused: video.paused,
       });
     });
+
     video.addEventListener('play', () => {
       this.setState({
         paused: video.paused,
       });
     });
+
     video.addEventListener('timeupdate', () => {
       const now = (video.currentTime/video.duration) * 100;
       this.refs.controls.refs.progressbar.updateNow(now);
-    });
-    video.addEventListener('seeked', () => {
-
     });
 
     video.addEventListener('volumechange', () => {
@@ -38,7 +38,6 @@ class Player extends Component {
     video.removeEventListener('pause');
     video.removeEventListener('play');
     video.removeEventListener('timeupdate');
-    video.removeEventListener('seeked');
     video.removeEventListener('volumechange');
   }
 
@@ -58,8 +57,14 @@ class Player extends Component {
     this.refs.video.volume = volume;
   }
 
-  changeDuration = duration => {
-    this.refs.video.currentTime = duration;
+  changeDuration = width => {
+    this.refs.video.currentTime = (width/100) * this.refs.video.duration;
+  }
+
+  expand = () => {
+    this.setState({
+      expanded: !this.state.expanded,
+    });
   }
 
 
@@ -71,10 +76,11 @@ class Player extends Component {
       changeDuration,
       changeVolume,
       mute,
+      expand,
      } = this;
-    const { paused } = this.state;
+    const { paused, expanded } = this.state;
     return (
-      <div className='player-container'>
+      <div className={`player-container ${expanded ? 'expanded': ''}`}>
         <video ref='video'>
           <source src={src} />
         </video>
@@ -87,6 +93,7 @@ class Player extends Component {
            changeDuration={changeDuration}
            mute={mute}
            paused={paused}
+           expand={expand}
            />
         </div>
       </div>
