@@ -68,9 +68,9 @@ export default ({ type, fileName, start, duration, title, message }) =>
     .then((data) => {
       const { file } = data;
       console.log(data);
-      if (!post[type]) {
-        return false;
-      }
-      return post[type]({ file, title, message });
+      // if (!post[type]) {
+      //   return false;
+      // }
+      // return post[type]({ file, title, message });
     });
 

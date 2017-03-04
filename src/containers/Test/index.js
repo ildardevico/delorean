@@ -3,12 +3,20 @@ import publishVk from 'utils/publish/vk';
 
 export default class Test extends Component {
   send() {
+    // publishVk({
+    //   type: 'gif',
+    //   fileName: 'GoPro.mp4',
+    //   start: 20,
+    //   duration: 30,
+    //   message: 'test post',
+    //   title: 'Gif'
+    // }).then(postId => console.log(`Post ID: ${postId}`));
     publishVk({
-      type: 'gif',
+      type: 'video',
       fileName: 'GoPro.mp4',
       start: 20,
       duration: 30,
-      message: 'test post',
+      message: 'test post video',
       title: 'Gif'
     }).then(postId => console.log(`Post ID: ${postId}`));
   }
