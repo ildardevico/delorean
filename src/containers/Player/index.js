@@ -33,7 +33,7 @@ class Player extends Component {
   loadGif({ duration, start, fileName, title, message = '' }) {
     return publishVk({
       type: 'gif',
-      fileName: fileName || 'player.mp4',
+      fileName: fileName || 'GoPro.mp4',
       start,
       duration,
       message,
@@ -134,7 +134,7 @@ class Player extends Component {
     return (
       <div className={`player-container ${expanded ? 'expanded': ''}`}>
         <video ref='video'>
-          <source src={src || './video/original/player.mp4'} />
+          <source src={src || './video/original/GoPro.mp4'} />
         </video>
           {
             !sharing ?
