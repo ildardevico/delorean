@@ -1,16 +1,19 @@
 import rp from 'request-promise';
 import fs from 'fs';
+import pathUtil from 'path';
 
 
-export const uploadImage = (uri, image) => {
+export const uploadData = (uri, path, key, contentType) => {
+  const ext = pathUtil.extname(path);
+
   return rp.post({
     uri,
     formData: {
-      file: {
-        value: fs.readFileSync(image),
+      [key]: {
+        value: fs.readFileSync(path),
         options: {
-          filename: 'photo.gif',
-          contentType: 'image/gif'
+          filename: `data${ext}`,
+          contentType //'image/gif' || 'video/mp4'
         }
       }
     },
