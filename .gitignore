@@ -3,3 +3,4 @@ npm-debug.log
 config/index.js
 static/bundle/bundle.js
 static/bundle/bundle.js.map
+.idea
