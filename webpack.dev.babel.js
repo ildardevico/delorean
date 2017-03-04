@@ -1,6 +1,6 @@
-import webpack from 'webpack'
-import path from 'path'
-const ignore = new webpack.IgnorePlugin(/\.svg$/)
+import webpack from 'webpack';
+import path from 'path';
+const ignore = new webpack.IgnorePlugin(/\.svg$/);
 
 module.exports = {
   devtool: 'source-map',
@@ -34,4 +34,4 @@ module.exports = {
     ]
   },
   plugins: [ignore],
-}
+};

@@ -1,22 +1,17 @@
 import express from 'express';
 import path from 'path';
-import api from './api';
-import auth from './auth';
+import { publicRoutes, userRoutes } from './controllers';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.static('static'));
 
-app.use('/api', api);
-app.use('/auth', auth);
-app.use('/health', (req, res) => res.status(200).send('ok'));
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve('public', 'index.html'));
-});
+app.use(publicRoutes());
+app.use(userRoutes());
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve('static', 'index.html'));
+  res.sendFile(path.resolve('public', 'index.html'));
 });
 
 // catch 404 and forward to error handler

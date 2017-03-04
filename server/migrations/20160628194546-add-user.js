@@ -16,9 +16,7 @@ module.exports = {
         resetToken: DataTypes.STRING,
         resetTokenExpires: DataTypes.DATE
       })
-      .then(() => done())
+      .then(() => done());
   },
-  down: queryInterface => {
-    return queryInterface.dropTable('Users')
-  }
-}
+  down: queryInterface => queryInterface.dropTable('Users')
+};
