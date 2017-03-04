@@ -38,13 +38,15 @@ const getUploadUrl = type => new Promise((resolve, reject) => {
 
 });
 
-export default ({ type, fileName, startTime, endTime }) => {
+export default ({ type, fileName, start, duration }) => {
   getUploadUrl(type)
     .then(uploadUrl => {
       console.log('uploadUrl', uploadUrl);
+      // console.log('body', { type, fileName, start, duration, uploadUrl });
       return fetch(publishUrl, {
         method: 'POST',
-        body: { type, fileName, startTime, endTime, uploadUrl }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, fileName, start, duration, uploadUrl })
       });
     }).then(data => {
       console.log('data from server', data);
