@@ -5,4 +5,8 @@ server/config/config.json
 src/config/index.js
 static/bundle.js
 static/bundle.js.map
+static/video/cutted/*
+static/video/gifs/*
+static/video/original/*
 .idea
+.DS_Store

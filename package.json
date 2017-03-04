@@ -34,6 +34,7 @@
     "redux-form": "^6.5.0",
     "redux-saga": "^0.14.3",
     "redux-thunk": "^2.2.0",
+    "request-promise": "^4.1.1",
     "sass-loader": "^4.1.1",
     "sequelize": "^3.23.4",
     "sequelize-cli": "^2.4.0",
