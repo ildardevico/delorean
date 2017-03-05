@@ -6,7 +6,7 @@ export default class CustomControl extends Component {
     const { top, icon, text, handler } = this.props;
 
     return (
-      <div style={{ top }} className="custom-control">
+      <div style={{ top: `${top}px` }} className="custom-control">
         <button onClick={handler}>{icon}</button>
         <p className="help">{text}</p>
       </div>

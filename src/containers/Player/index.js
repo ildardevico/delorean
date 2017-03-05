@@ -143,6 +143,14 @@ class Player extends Component {
     //TODO ebanut' filename
   }
 
+  shazamHandler = () => {
+    const { shazam } = this;
+    const { shazamLoading } = this.state;
+    if (!shazamLoading) {
+      shazam();
+    }
+  }
+
   share = () => {
     this.setState({
       duration: Math.round(this.refs.video.duration),
@@ -205,6 +213,7 @@ class Player extends Component {
       downloadHandler,
       back,
       shazam,
+      shazamHandler,
       toList,
       select,
      } = this;
@@ -236,6 +245,7 @@ class Player extends Component {
         top="60"
         icon={<i className="material-icons">hearing</i>}
         text="Recognize sound"
+        handler={shazamHandler}
       />
     );
 
@@ -275,7 +285,7 @@ class Player extends Component {
               shareHandler={shareHandler}
               downloadHandler={downloadHandler}
               back={back}
-              src={src}
+              src={selected}
               shareType={shareType}
               changeShareType={this.changeShareType}
             />
