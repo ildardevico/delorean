@@ -44,7 +44,8 @@
     "sequelize-cli": "^2.4.0",
     "style-loader": "^0.13.1",
     "vk-openapi": "^0.1.2",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
