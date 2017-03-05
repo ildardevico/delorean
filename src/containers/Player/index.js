@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import Notifications from 'react-notification-system-redux';
 import publishVk from 'utils/publish/vk';
 import Controls from './components/Controls';
 import ShareControls from './components/ShareControls';
 import Spinner from './components/Spinner';
 import './styles.scss';
+
+const notificationOpts = {
+  title: 'Shared!',
+  message: 'Your video was shared',
+  position: 'tr',
+  autoDismiss: 0
+};
 
 const GIF = 'GIF';
 
@@ -25,9 +34,23 @@ class Player extends Component {
       spinner: true,
     });
     if(this.state.shareType === GIF) {
-      this.loadGif(options).then(() => this.setState({ spinner: false }));
+      this.loadGif(options).then(() => {
+        this.setState({ spinner: false });
+        this.props.showSnack(Notifications.success({
+          ...notificationOpts,
+          message: 'Your Gif was shared!'
+        }));
+        this.back();
+      });
     } else {
-      this.loadVideo(options).then(() => this.setState({ spinner: false }));
+      this.loadVideo(options).then(() => {
+        this.setState({ spinner: false });
+        this.props.showSnack(Notifications.success({
+          ...notificationOpts,
+          message: 'Your Video was shared!'
+        }));
+        this.back();
+      });
     }
   }
 
@@ -182,5 +205,9 @@ class Player extends Component {
 }
 
 export default connect(
-  state => state
+  state => state,
+  dispatch => ({
+    showSnack: opt => dispatch(opt),
+    goTo: path => dispatch(push(path)),
+  })
 )(Player);
