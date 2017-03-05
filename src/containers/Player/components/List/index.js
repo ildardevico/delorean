@@ -21,18 +21,6 @@ class List extends Component {
             </div>
           </Col>
         ))}
-        <Col md={4}>
-          <div style={{backgroundImage: `url(./icons/prev.jpg)`}} className='card'>
-            <img src='./icons/big_play.png'/>
-            <p >dasdas</p>
-          </div>
-        </Col>
-        <Col md={4}>
-          <div style={{backgroundImage: `url(./icons/prev.jpg)`}} className='card'>
-            <img src='./icons/big_play.png'/>
-            <p>ddasdasdsa</p>
-          </div>
-        </Col>
         </Col>
       </div>
     );
