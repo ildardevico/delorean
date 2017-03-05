@@ -90,16 +90,24 @@ export default class ShareControls extends Component {
           defaultValue={defaultValue}
           step={1}
         />
-        <Input type='text' ref='message' placeholder='Comment' />
+        <Input className='message-input' type='text' ref='message' placeholder='Comment' />
         <div className="buttons-wrapper">
-          <Button onClick={back}>Back</Button>
+          <Button
+            className="back-button"
+            onClick={back}
+          ><i className="material-icons">arrow_back</i> Back</Button>
           <div className={`switch-wrapper ${shareType}`}>
             <span className="text text-gif">Gif</span>
             <div className="switch" onClick={changeShareType}></div>
             <span className="text text-video">Video</span>
           </div>
-          <Button className='download-button' onClick={this.downloadPart}>Download</Button>
-          <Button onClick={this.sharePart}>Share</Button>
+          <Button
+            className='download-button'
+            onClick={this.downloadPart}
+          >Download <i className="material-icons">file_download</i></Button>
+          <Button 
+            onClick={this.sharePart}
+          >Share <i className="material-icons">share</i></Button>
         </div>
       </div>
     );
