@@ -1,5 +1,4 @@
-FROM node
-RUN apt-get update && apt-get install ffmpeg
+FROM delorean_container
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN npm i
