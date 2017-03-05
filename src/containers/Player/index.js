@@ -206,6 +206,7 @@ class Player extends Component {
     this.setState({
       selected: null,
     });
+    this.back();
   }
 
   over = () => {
