@@ -2,6 +2,9 @@
   position: absolute !important;
   right: -50px;
   transition: .3s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   a {
     display: flex;
     align-items: center;
