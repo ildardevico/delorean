@@ -174,6 +174,10 @@ class Player extends Component {
       selected,
     }, () => {
       const { video } = this.refs;
+      this.refs.source.src = selected;
+      this.refs.video.load();
+      this.play();
+      this.refs.video.currentTime = 0;
       video.addEventListener('pause', () => {
         this.setState({
           paused: video.paused,
@@ -277,7 +281,7 @@ class Player extends Component {
             className={`${this.state.hover ? 'hovered': ''} ${sharing ? 'hide' : ''}`}
           >
             <video ref='video' onClick={this.togglePlay}>
-              <source src={selected} />
+              <source ref='source' src={selected} />
             </video>
             <div className='controls-container'>
               <Controls
