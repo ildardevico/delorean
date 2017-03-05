@@ -17,6 +17,7 @@ class Controls extends Component {
       changeDuration,
       muted,
       share,
+      toList,
     } = this.props;
     return (
       <div>
@@ -35,6 +36,9 @@ class Controls extends Component {
             </span>
           </div>
           <div className='right'>
+            <span>
+              <i onClick={toList} className="material-icons" >arrow_back</i>
+            </span>
             <span>
               <i onClick={share} className="material-icons">screen_share</i>
             </span>

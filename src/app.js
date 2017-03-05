@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import store from 'store';
 import Layout from 'containers/Layout';
 import Player from 'containers/Player';
-import Test from 'containers/Test';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -17,7 +16,6 @@ export default class App extends Component {
         <Router history={history}>
           <Route path='/' component={Layout} >
             <IndexRoute component={Player} />
-            <Route path='/test' component={Test} />
           </Route>
         </Router>
        </Provider>

@@ -4,10 +4,10 @@ export default function createPromiseAction(action, success, fail = null) {
       action(...options)
       .then(res => dispatch({
         type: success,
-        res
+        ...res
       }))
       .catch(err => dispatch({
-        type: !fail ? `${success}_FAIL`: fail,
+        type: console.log(err) || !fail ? `${success}_FAIL`: fail,
         // res: response.res
       }))
     )
