@@ -1,33 +1,36 @@
 
 .main {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, .5);
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s;
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 .spinner {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    margin: 0 auto;
-    top: 50%;
-    left: 44%;
-}
-
-.load-9 {
-  position: relative;
-  bottom: 5px;
-  right: 5px;
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  top: calc(50% - 23px);
+  left: calc(50% - 23px);
 }
 
 .bubble-1,
 .bubble-2 {
-    position: absolute;
-    top: 0;
-    width: 25px;
-    height: 25px;
-    border-radius: 100%;
-    background-color: rgb(185, 0, 0);
+  position: absolute;
+  top: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #58008c;
 }
 
 .bubble-2 {

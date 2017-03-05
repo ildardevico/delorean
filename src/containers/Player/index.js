@@ -10,71 +10,97 @@ import Spinner from 'components/Spinner';
 import List from './components/List';
 import './styles.scss';
 
-const notificationOpts = {
-  title: 'Shared!',
-  message: 'Your video was shared'
-};
-
-const GIF = 'GIF';
-
 class Player extends Component {
 
   state = {
     paused: true,
-    shareType: GIF,
+    shareType: 'gif'
   }
 
-  shareHandler = options => {
-    options = {
-      fileName: this.props.fileName,
-      title: this.props.tytle,
-      ...options,
-    };
-    this.setState({
-      spinner: true,
-    });
-    if(this.state.shareType === GIF) {
-      this.loadGif(options).then(() => {
-        this.setState({ spinner: false });
-        this.props.showSnack(Notifications.success({
-          ...notificationOpts,
-          message: 'Your Gif was shared!'
-        }));
-        this.back();
-      });
-    } else {
-      this.loadVideo(options).then(() => {
-        this.setState({ spinner: false });
-        this.props.showSnack(Notifications.success({
-          ...notificationOpts,
-          message: 'Your Video was shared!'
-        }));
-        this.back();
-      });
-    }
+  changeShareType = () => {
+    const { shareType } = this.state;
+    const newShareType = shareType === 'gif' ? 'video' : 'gif';
+    this.setState({ shareType: newShareType });
   }
 
-  loadGif({ duration, start, fileName, title, message = '' }) {
-    return publishVk({
-      type: 'gif',
+  shareHandler = ({ duration, start, message = '' }) => {
+    const { shareType } = this.state;
+    const { fileName = '', title = '' } = this.props;
+    this.setState({ spinner: true });
+
+    publishVk({
+      type: shareType,
       fileName: fileName || 'GoPro.mp4',
       start,
       duration,
       message,
-      title: title || 'hello-tytle',
+      title: title
+    }).then(() => {
+      this.setState({ spinner: false });
+      this.props.showSnack(Notifications.success({
+        title: 'Success!',
+        message: `Your ${shareType === 'gif' ? 'Gif' : 'Video'} was shared!`
+      }));
+      this.back();
+    }).catch(error => {
+      this.setState({ spinner: false });
+      this.props.showSnack(Notifications.error({
+        title: 'Error!',
+        message: error
+      }));
     });
   }
 
-  loadVideo({ duration, start, fileName, title, message = '' }) {
-    return publishVk({
-      type: 'video',
-      fileName,
-      start,
-      duration,
-      message,
-      title,
-    });
+  downloadHandler = ({ duration, start }) => {
+    console.log('downloadHandler', { duration, start });
+    // const { shareType } = this.state;
+    // const { fileName = '', title = '' } = this.props;
+    // this.setState({ spinner: true });
+    //
+    // publishVk({
+    //   type: shareType,
+    //   fileName: fileName || 'GoPro.mp4',
+    //   start,
+    //   duration,
+    //   message,
+    //   title: title
+    // }).then(() => {
+    //   this.setState({ spinner: false });
+    //   this.props.showSnack(Notifications.success({
+    //     title: 'Success!',
+    //     message: `Your ${shareType === 'gif' ? 'Gif' : 'Video'} was shared!`
+    //   }));
+    //   this.back();
+    // }).catch(error => {
+    //   this.setState({ spinner: false });
+    //   this.props.showSnack(Notifications.error({
+    //     title: 'Error!',
+    //     message: error
+    //   }));
+    // });
   }
+
+  // loadGif({ duration, start, fileName, title, message = '' }) {
+  //   return publishVk({
+  //     type: 'gif',
+  //     fileName: fileName || 'GoPro.mp4',
+  //     start,
+  //     duration,
+  //     message,
+  //     title: title || 'hello-tytle',
+  //   });
+  // }
+  //
+  // loadVideo({ duration, start, fileName, title, message = '' }) {
+  //   return publishVk({
+  //     type: 'video',
+  //     fileName,
+  //     start,
+  //     duration,
+  //     message,
+  //     title,
+  //   });
+  // }
 
   componentWillUnmount() {
     const { video } = this.refs;
@@ -182,19 +208,20 @@ class Player extends Component {
       expand,
       share,
       shareHandler,
+      downloadHandler,
       back,
       shazam,
       toList,
       select,
      } = this;
-    const {selected, paused, expanded, muted, sharing, duration, currentTime, spinner } = this.state;
+    const { shareType, selected, paused, expanded, muted, sharing, duration, currentTime, spinner } = this.state;
     const src  = `./video/original/${selected}`;
     if(selected) {
       return (
         <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
           <div className={sharing ? 'hide' : ''}>
             <video ref='video'>
-              <source src={src} />
+              <source src={src || './video/original/GoPro.mp4'} />
             </video>
             <div className='controls-container'>
               <Controls
@@ -205,11 +232,11 @@ class Player extends Component {
                 changeVolume={changeVolume}
                 changeDuration={changeDuration}
                 mute={mute}
-                toList={toList}
                 muted={muted}
                 paused={paused}
                 expand={expand}
                 shazam={shazam}
+                toList={toList}
               />
             </div>
           </div>
@@ -219,20 +246,20 @@ class Player extends Component {
               className={!sharing ? 'hide' : ''}
               duration={duration}
               currentTime={currentTime}
-              handler={shareHandler}
+              shareHandler={shareHandler}
+              downloadHandler={downloadHandler}
               back={back}
               src={src}
+              shareType={shareType}
+              changeShareType={this.changeShareType}
             />
           }
-          <div style={{display: `${!spinner ? 'none': 'block'}`}}>
-            <Spinner />
-          </div>
+          <Spinner show={spinner} />
         </div>
       );
     } else {
       return <List select={select} />;
     }
-
   }
 }
 

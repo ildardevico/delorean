@@ -26,6 +26,18 @@ export default class ShareControls extends Component {
   }
 
   sharePart = () => {
+    const { getConfigForPart } = this;
+    const { shareHandler } = this.props;
+    shareHandler(getConfigForPart());
+  }
+
+  downloadPart = () => {
+    const { getConfigForPart } = this;
+    const { downloadHandler } = this.props;
+    downloadHandler(getConfigForPart());
+  }
+
+  getConfigForPart = () => {
     let { duration } = this.props;
     const { currentTime } = this.props;
     let start = currentTime;
@@ -34,11 +46,11 @@ export default class ShareControls extends Component {
       [ start, duration ] = this.state.value;
     }
     const message = this.refs.message.value;
-    this.props.handler({ start, duration, message });
+    return { start, duration, message };
   }
 
   render() {
-    const { duration, currentTime, back, src } = this.props;
+    const { shareType, changeShareType, duration, currentTime, back, src } = this.props;
     const { value } = this.state;
     const defaultValue = [
       currentTime,
@@ -54,28 +66,37 @@ export default class ShareControls extends Component {
             <source src={src || './video/original/GoPro.mp4'} />
           </video>
         </div>
-        <div>
-          <Range
-            onChange={this.changePeriod}
-            min={0}
-            max={duration}
-            value={value || defaultValue}
-            defaultValue={defaultValue}
-            step={1}
-          />
-          <Input className='message-input' type='text' ref='message' placeholder='Comment' />
-            <Button
-              style={{ marginTop: '5px' }}
-              className='pull-left'
-              onClick={back}>
-              Back
-            </Button>
-            <Button
-              style={{ marginTop: '5px', float: 'right' }}
-              onClick={this.sharePart}
-              bsStyle='info'>
-              Share
-            </Button>
+        <Range
+          onChange={this.changePeriod}
+          min={0}
+          max={duration}
+          value={value || defaultValue}
+          defaultValue={defaultValue}
+          step={1}
+        />
+        <Input type='text' ref='message' placeholder='Comment' />
+        <div className="buttons-wrapper">
+          <Button
+            className='pull-left'
+            onClick={back}>
+            Back
+          </Button>
+          <div className={`switch-wrapper ${shareType}`}>
+            <span className="text text-gif">Gif</span>
+            <div className="switch" onClick={changeShareType}></div>
+            <span className="text text-video">Video</span>
+          </div>
+          <Button
+            className='download-button'
+            onClick={this.downloadPart}
+            bsStyle='primary'>
+            Download
+          </Button>
+          <Button
+            onClick={this.sharePart}
+            bsStyle='info'>
+            Share
+          </Button>
         </div>
       </div>
     );

@@ -10,6 +10,61 @@
   margin: 5px auto 10px;
 }
 
-.message-input {
-  margin-bottom: 5px;
+.buttons-wrapper {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .download-button {
+    margin-right: 10px;
+  }
+  .switch-wrapper {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .text {
+      font-size: 14px;
+      margin: 0 10px;
+      color: #231f20;
+      transition: .3s;
+    }
+    .switch {
+      position: relative;
+      width: 50px;
+      height: 30px;
+      border: 3px solid #58008c;
+      border-radius: 15px;
+      cursor: pointer;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #58008c;
+        transition: .3s;
+      }
+    }
+    &.gif {
+      .text.text-gif {
+        color: #58008c;
+        transform: scale(1.3);
+      }
+      .switch:after {
+        left: 2px;
+      }
+    }
+    &.video {
+      .text.text-video {
+        color: #58008c;
+        transform: scale(1.3);
+      }
+      .switch:after {
+        left: 22px;
+      }
+    }
+  }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import './styles.scss';
 
-const Spinner = () => (
-  <div className='main'>
+const Spinner = ({ show }) => (
+  <div className={`main ${show ? 'show' : ''}`}>
     <div className="load-9">
       <div className="spinner">
           <div className="bubble-1"></div>
