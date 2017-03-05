@@ -138,8 +138,8 @@ class Player extends Component {
 
   shazam = () => {
     this.props.shazam({ fileName: this.props.fileName || 'GoPro.mp4', time: this.refs.video.currentTime || 0 })
-    .then(({ res: data }) => {
-      data.forEach(track => {
+    .then(({ tracks }) => {
+      tracks.forEach(track => {
         this.props.showSnack(Notifications.success({
           title: track.title,
           message: track.artists.join(' ') + track.album
