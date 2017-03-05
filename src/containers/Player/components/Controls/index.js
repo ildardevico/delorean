@@ -23,7 +23,7 @@ class Controls extends Component {
         <Progress ref='progressbar' changeDuration={changeDuration} />
         <div className='controls'>
           <div className='left'>
-            <span onClick={paused ? play: pause}>
+            <span onClick={paused ? play : pause}>
                 <i className="material-icons">
                   {paused ? 'play_arrow': 'pause'}
                 </i>

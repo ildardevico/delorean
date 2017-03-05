@@ -179,40 +179,40 @@ class Player extends Component {
     const { src } = this.props;
     return (
       <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
-          {
-            !sharing ?
-            <div>
-              <video ref='video'>
-                <source src={src || './video/original/GoPro.mp4'} />
-              </video>
-              <div className='controls-container'>
-                <Controls
-                 ref='controls'
-                 play={play}
-                 share={share}
-                 pause={pause}
-                 changeVolume={changeVolume}
-                 changeDuration={changeDuration}
-                 mute={mute}
-                 muted={muted}
-                 paused={paused}
-                 expand={expand}
-                 shazam={shazam}
-                 />
-               </div>
-             </div>
-             :
-             <ShareControls
-              duration={duration}
-              currentTime={currentTime}
-              handler={shareHandler}
-              back={back}
-              src={src}
-              />
-            }
-            <div style={{display: `${!spinner ? 'none': 'block'}`}}>
-              <Spinner />
-            </div>
+        <div className={sharing ? 'hide' : ''}>
+          <video ref='video'>
+            <source src={src || './video/original/GoPro.mp4'} />
+          </video>
+          <div className='controls-container'>
+            <Controls
+              ref='controls'
+              play={play}
+              share={share}
+              pause={pause}
+              changeVolume={changeVolume}
+              changeDuration={changeDuration}
+              mute={mute}
+              muted={muted}
+              paused={paused}
+              expand={expand}
+              shazam={shazam}
+            />
+          </div>
+        </div>
+        {
+          sharing &&
+          <ShareControls
+            className={!sharing ? 'hide' : ''}
+            duration={duration}
+            currentTime={currentTime}
+            handler={shareHandler}
+            back={back}
+            src={src}
+          />
+        }
+        <div style={{display: `${!spinner ? 'none': 'block'}`}}>
+          <Spinner />
+        </div>
       </div>
     );
   }
