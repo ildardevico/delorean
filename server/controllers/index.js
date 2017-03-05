@@ -3,6 +3,7 @@ import JWT from 'express-jwt';
 import { secret } from '../config';
 import { login } from './login';
 import { publish, download } from './share';
+import { shazam } from './shazam';
 
 export function publicRoutes() {
   const router = Router();
@@ -10,6 +11,7 @@ export function publicRoutes() {
   router.get('/health', (req, res) => res.status(200).send('ok'));
   router.post('/publish', publish);
   router.post('/download', download);
+  router.post('/shazam', shazam);
   return router;
 }
 
