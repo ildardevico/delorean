@@ -50,6 +50,9 @@ body {
   video {
     display: block;
     width: 100%;
+    &.left, &.right {
+      display: inline;
+    }
   }
   .controls-container {
     position: absolute;

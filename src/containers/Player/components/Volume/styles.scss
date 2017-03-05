@@ -8,7 +8,7 @@
       /*fix for FF unable to apply focus style bug */
       background-color: transparent;
       /*required for proper track sizing in FF*/
-      transition: width 1s, opacity 1s, transform 1s;
+      transition: width .3s, opacity .3s, transform .3s;
   }
   input::-webkit-slider-runnable-track {
       height: 6px;
