@@ -133,11 +133,14 @@ class Player extends Component {
           message: 'Can not recognize( Try again'
         }));
       }
-      tracks.forEach(track => {
-        this.props.showSnack(Notifications.success({
-          title: track.title,
-          message: track.artists.join(' ') + track.album
-        }));
+      tracks.forEach((track, i) => {
+        if (i > 2) return;
+        setTimeout(() => {
+          this.props.showSnack(Notifications.success({
+            title: track.title,
+            message: track.artists.join(' ') + track.album
+          }));
+        }, i * 800);
       });
     })
     .then(() => this.setState({ shazamLoading: false }));
