@@ -8,6 +8,12 @@
 .rc-slider {
   width: calc(100% - 14px);
   margin: 5px auto 10px;
+  .rc-slider-track {
+    background: #58008c;
+  }
+  .rc-slider-handle {
+    border-color: #58008c;
+  }
 }
 
 .message-input {
