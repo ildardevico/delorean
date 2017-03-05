@@ -7,7 +7,7 @@ export default class CustomControl extends Component {
 
     return (
       <div style={{ top: `${top}px` }} className="custom-control">
-        <button onClick={handler}>{icon}</button>
+        <a onClick={handler}>{icon}</a>
         <p className="help">{text}</p>
       </div>
     );

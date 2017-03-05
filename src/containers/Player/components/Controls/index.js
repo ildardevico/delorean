@@ -3,14 +3,6 @@ import Progress from '../Progress';
 import Volume from '../Volume';
 
 class Controls extends Component {
-
-  shazamHandler = () => {
-    const { shazamLoading, shazam } = this.props;
-    if (!shazamLoading) {
-      shazam();
-    }
-  }
-
   render() {
     const {
       play,
@@ -23,7 +15,6 @@ class Controls extends Component {
       currentTime,
       changeDuration,
       muted,
-      share,
       toList,
     } = this.props;
 
@@ -46,12 +37,6 @@ class Controls extends Component {
           <div className='right'>
             <span>
               <i onClick={toList} className="material-icons" >arrow_back</i>
-            </span>
-            <span>
-              <i onClick={share} className="material-icons">screen_share</i>
-            </span>
-            <span onClick={this.shazamHandler}>
-              <i className="material-icons">audiotrack</i>
             </span>
             <span onClick={expand}>
               <i className="material-icons">aspect_ratio</i>
