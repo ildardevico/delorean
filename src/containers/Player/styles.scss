@@ -45,6 +45,27 @@ body {
       opacity: 0;
     }
   }
+  .back-to-list-button {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #58008c;
+    background: #fff;
+    color: #58008c;
+    text-decoration: none;
+    font-size: 36px;
+    cursor: pointer;
+    transition: .3s;
+    &:hover {
+      background: #58008c;
+      color: #fff;
+    }
+  }
   video {
     display: block;
     width: 100%;

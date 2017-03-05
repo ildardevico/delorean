@@ -2,7 +2,7 @@
   position: absolute !important;
   right: -50px;
   transition: .3s;
-  button {
+  a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,6 +16,8 @@
     font-size: 24px;
     opacity: .7;
     transition: .3s;
+    text-decoration: none;
+    cursor: pointer;
     &:hover {
       opacity: 1;
     }
