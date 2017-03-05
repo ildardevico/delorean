@@ -9,7 +9,7 @@ api.setConfig({
 });
 
 export const shazam = async (req, res) => {
-  const { fileName, time = 40 } = req.body;
+  const { fileName, time } = req.body;
 
   const prevPoint = time - 5;
   const endTime = time + 5;
