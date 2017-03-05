@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import publishVk from 'utils/publish/vk';
 import Controls from './components/Controls';
 import ShareControls from './components/ShareControls';
+import Spinner from './components/Spinner';
 import './styles.scss';
 
 const GIF = 'GIF';
@@ -138,7 +139,7 @@ class Player extends Component {
       shareHandler,
       back,
      } = this;
-    const { paused, expanded, muted, sharing, duration, currentTime } = this.state;
+    const { paused, expanded, muted, sharing, duration, currentTime, spinner } = this.state;
     const { src } = this.props;
     return (
       <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
@@ -172,6 +173,9 @@ class Player extends Component {
               src={src}
               />
             }
+            <div style={{display: `${!spinner ? 'none': 'block'}`}}>
+              <Spinner />
+            </div>
       </div>
     );
   }
