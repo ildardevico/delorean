@@ -12,11 +12,27 @@ export default class ShareControls extends Component {
 
   changePeriod = value => {
     const [ first, second ] = value;
-    if((second - first) <= MAX_PERIOD) {
+
+    if (!this.state.value) {
+      this.setState({ value });
+      return;
+    }
+
+    const draggedFirst = this.state.value[0] !== first;
+    const draggedSecond = !draggedFirst;
+
+    if (second >= (first + MAX_PERIOD) && draggedSecond) {
+      this.refs.left.currentTime = value[0] = second - MAX_PERIOD;
+      this.refs.right.currentTime = second;
+    } else if (first < (second - MAX_PERIOD) && draggedFirst) {
+      this.refs.left.currentTime = first;
+      this.refs.right.currentTime = value[1] = first + MAX_PERIOD;
+    } else {
       this.refs.left.currentTime = first;
       this.refs.right.currentTime = second;
-      this.setState({ value });
     }
+
+    this.setState({ value });
   }
 
   componentDidMount() {
