@@ -18,6 +18,12 @@ export default class ShareControls extends Component {
     }
   }
 
+  componentDidMount() {
+    const { duration, currentTime } = this.props;
+    this.refs.left.currentTime = currentTime;
+    this.refs.right.currentTime = duration;
+  }
+
   sharePart = () => {
     let { duration } = this.props;
     const { currentTime } = this.props;
