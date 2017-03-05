@@ -26,12 +26,12 @@ class Player extends Component {
 
   shareHandler = ({ duration, start, message = '' }) => {
     const { shareType } = this.state;
-    const { fileName = '', title = '' } = this.props;
+    const { title = '' } = this.props;
     this.setState({ spinner: true });
 
     publishVk({
       type: shareType,
-      fileName: fileName || 'GoPro.mp4',
+      fileName: this.state.selected,
       start,
       duration,
       message,
@@ -53,14 +53,12 @@ class Player extends Component {
   }
 
   downloadHandler = ({ duration, start }) => {
-    console.log('downloadHandler', { duration, start });
     const { shareType } = this.state;
-    const { fileName = '' } = this.props;
     this.setState({ spinner: true });
 
     downloadFile({
       type: shareType,
-      fileName: fileName || 'GoPro.mp4',
+      fileName: this.state.selected,
       start,
       duration
     }).then(path => {
