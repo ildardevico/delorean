@@ -238,13 +238,12 @@ class Player extends Component {
       />
     );
 
-    const src  = `./video/original/${selected}`;
     if(selected) {
       return (
         <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
           <div className={sharing ? 'hide' : ''}>
             <video ref='video' onClick={this.togglePlay}>
-              <source src={src} />
+              <source src={selected} />
             </video>
             <div className='controls-container'>
               <Controls
