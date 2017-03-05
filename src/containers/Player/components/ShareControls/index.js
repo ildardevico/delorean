@@ -22,7 +22,7 @@ export default class ShareControls extends Component {
   componentDidMount() {
     const { duration, currentTime } = this.props;
     this.refs.left.currentTime = currentTime;
-    this.refs.right.currentTime = duration;
+    this.refs.right.currentTime = duration > (currentTime + MAX_PERIOD) ? currentTime + MAX_PERIOD: duration;
   }
 
   sharePart = () => {
