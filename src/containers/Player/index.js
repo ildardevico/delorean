@@ -118,6 +118,14 @@ class Player extends Component {
     this.setState({ sharing: true });
   }
 
+  back = () => {
+    this.setState({
+      sharing: false,
+      duration: null,
+      currentTime: null,
+    });
+  }
+
   render() {
     const {
       play,
@@ -128,35 +136,40 @@ class Player extends Component {
       expand,
       share,
       shareHandler,
+      back,
      } = this;
     const { paused, expanded, muted, sharing, duration, currentTime } = this.state;
     const { src } = this.props;
     return (
       <div className={`player-container ${expanded ? 'expanded': ''}`}>
-        <video ref='video'>
-          <source src={src || './video/original/GoPro.mp4'} />
-        </video>
           {
             !sharing ?
-            <div className='controls-container'>
-              <Controls
-               ref='controls'
-               play={play}
-               share={share}
-               pause={pause}
-               changeVolume={changeVolume}
-               changeDuration={changeDuration}
-               mute={mute}
-               muted={muted}
-               paused={paused}
-               expand={expand}
-               />
+            <div>
+              <video ref='video'>
+                <source src={src || './video/original/GoPro.mp4'} />
+              </video>
+              <div className='controls-container'>
+                <Controls
+                 ref='controls'
+                 play={play}
+                 share={share}
+                 pause={pause}
+                 changeVolume={changeVolume}
+                 changeDuration={changeDuration}
+                 mute={mute}
+                 muted={muted}
+                 paused={paused}
+                 expand={expand}
+                 />
+               </div>
              </div>
              :
              <ShareControls
               duration={duration}
               currentTime={currentTime}
               handler={shareHandler}
+              back={back}
+              src={src}
               />
             }
       </div>
