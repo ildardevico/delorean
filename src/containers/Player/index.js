@@ -222,6 +222,22 @@ class Player extends Component {
       shazamLoading,
     } = this.state;
 
+    const publishControl = (
+      <CustomControl
+        top="10"
+        icon={<i className="fa fa-hand-scissors-o"></i>}
+        text="Make 30 sec video/gif"
+      />
+    );
+
+    const shazamControl = (
+      <CustomControl
+        top="60"
+        icon={<i className="material-icons">hearing</i>}
+        text="Recognize sound"
+      />
+    );
+
     const src  = `./video/original/${selected}`;
     if(selected) {
       return (
@@ -247,19 +263,9 @@ class Player extends Component {
                 shazamLoading={shazamLoading}
               />
             </div>
+            {sharing || publishControl}
+            {sharing || shazamControl}
           </div>
-          {
-            sharing || (
-              <div>
-                <CustomControl
-                  style={{ top: 20, right: 20 }}
-                />
-                <CustomControl
-                  style={{ top: 40, right: 20 }}
-                />
-              </div>
-            )
-          }
           {
             sharing &&
             <ShareControls

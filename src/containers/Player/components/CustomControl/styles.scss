@@ -1,9 +1,58 @@
 .custom-control {
   position: absolute !important;
+  right: -50px;
+  transition: .3s;
   button {
-    display: block;
-    width: 50px;
-    height: 50px;
-    outline: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    opacity: .7;
+    transition: .3s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .help {
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    width: 170px;
+    padding: 8px 0;
+    background: #58008c;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -7px;
+      width: 10px;
+      height: 10px;
+      background: #58008c;
+      transform: rotate(45deg) translateX(-50%);
+    }
+  }
+  &:hover .help {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.player-container:hover {
+  .custom-control {
+    right: 10px;
   }
 }

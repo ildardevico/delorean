@@ -3,14 +3,12 @@ import './styles.scss';
 
 export default class CustomControl extends Component {
   render() {
-    const {
-      style
-    } = this.props;
+    const { top, icon, text } = this.props;
 
     return (
-      <div style={style} className="custom-control">
-        <button>Icon</button>
-        <p className="help">Some text</p>
+      <div style={{ top }} className="custom-control">
+        <button>{icon}</button>
+        <p className="help">{text}</p>
       </div>
     );
   }
