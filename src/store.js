@@ -3,6 +3,8 @@ import thunk from 'redux-thunk';
 import { routerMiddleware as createRouterMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import reducer from 'reducers';
+import { devTools } from 'utils/devTools';
+
 
 const routerMiddleware = createRouterMiddleware(browserHistory);
 
@@ -11,7 +13,8 @@ export default createStore(
   compose(
     applyMiddleware(
       thunk,
-      routerMiddleware
+      routerMiddleware,
+      devTools('fakamaka'),
     )
   )
 );

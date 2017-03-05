@@ -9,19 +9,21 @@ api.setConfig({
 });
 
 export const shazam = async (req, res) => {
-  const { fileName, time } = req.body;
+  const { fileName, time = 40 } = req.body;
+
   const prevPoint = time - 5;
   const endTime = time + 5;
   const startTime = prevPoint > 0 ? prevPoint : 0;
 
   const ext = path.extname(fileName);
   const endLastName = `${fileName.slice(0, ext.length + 1)}.mp3`;
+  const staticVideo = './static/video/original/';
 
-  const command = `ffmpeg -ss ${startTime} -i ./static/${fileName} -t ${endTime} ./static/${endLastName} -y`;
-  if (shell.exec(command, { silent: true }).code !== 0) {
+  const command = `ffmpeg -ss ${startTime} -i ${staticVideo}${fileName} -t ${endTime} ./static/mp3/${endLastName} -y`;
+  if (shell.exec(command, { silent: false }).code !== 0) {
     shell.echo('Command execution error');
     shell.exit(1);
   }
-  const tracks = await api.recogizer('./static/GoPro_cutted.mp3');
+  const tracks = await api.recogizer(`./static/mp3/${endLastName}`);
   res.send(tracks);
 };

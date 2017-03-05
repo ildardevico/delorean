@@ -5,6 +5,7 @@ import Notifications from 'react-notification-system-redux';
 import publishVk from 'utils/publish/vk';
 import Controls from './components/Controls';
 import ShareControls from './components/ShareControls';
+import { shazam } from './actions';
 import Spinner from './components/Spinner';
 import './styles.scss';
 
@@ -133,6 +134,10 @@ class Player extends Component {
     });
   }
 
+  shazam = () => {
+    this.props.shazam({ fileName: 'GoPro.mp4', time: this.state.currentTime }); //TODO ebanut' filename
+  }
+
   share = () => {
     this.setState({
       duration: Math.round(this.refs.video.duration),
@@ -161,6 +166,7 @@ class Player extends Component {
       share,
       shareHandler,
       back,
+      shazam,
      } = this;
     const { paused, expanded, muted, sharing, duration, currentTime, spinner } = this.state;
     const { src } = this.props;
@@ -184,6 +190,7 @@ class Player extends Component {
                  muted={muted}
                  paused={paused}
                  expand={expand}
+                 shazam={shazam}
                  />
                </div>
              </div>
@@ -209,5 +216,6 @@ export default connect(
   dispatch => ({
     showSnack: opt => dispatch(opt),
     goTo: path => dispatch(push(path)),
+    shazam: data => dispatch(shazam(data))
   })
 )(Player);

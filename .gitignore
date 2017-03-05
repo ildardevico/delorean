@@ -8,5 +8,6 @@ static/bundle.js.map
 static/video/cutted/*
 static/video/gifs/*
 static/video/original/*
+static/mp3/*
 .idea
 .DS_Store
