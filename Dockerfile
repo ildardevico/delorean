@@ -1,5 +1,5 @@
 FROM node
-RUN apt update && apt install ffmpeg
+RUN apt-get update && apt-get install ffmpeg
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN npm i
