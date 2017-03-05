@@ -122,9 +122,15 @@ class Player extends Component {
   }
 
   shazam = () => {
-    this.setState({ shazamLoading: true })
+    this.setState({ shazamLoading: true });
     this.props.shazam({ fileName: this.state.selected, time: this.refs.video.currentTime || 0 })
     .then(({ tracks }) => {
+      if (!tracks.length) {
+        this.props.showSnack(Notifications.error({
+          title: 'Music recognizer',
+          message: 'Can not recognize( Try again'
+        }));
+      }
       tracks.forEach(track => {
         this.props.showSnack(Notifications.success({
           title: track.title,
@@ -132,7 +138,7 @@ class Player extends Component {
         }));
       });
     })
-    .then(() => this.setState({ shazamLoading: false }))
+    .then(() => this.setState({ shazamLoading: false }));
     //TODO ebanut' filename
   }
 
