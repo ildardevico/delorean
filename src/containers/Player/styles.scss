@@ -13,6 +13,7 @@ body {
 }
 
 .player-container {
+  position: relative;
   width: 50%;
   & > div {
     position: relative;

@@ -1,0 +1,9 @@
+.custom-control {
+  position: absolute !important;
+  button {
+    display: block;
+    width: 50px;
+    height: 50px;
+    outline: 1px solid red;
+  }
+}

@@ -6,6 +6,7 @@ import publishVk from 'utils/publish/vk';
 import downloadFile from 'utils/publish/download';
 import Controls from './components/Controls';
 import ShareControls from './components/ShareControls';
+import CustomControl from './components/CustomControl';
 import { shazam } from './actions';
 import Spinner from 'components/Spinner';
 import List from './components/List';
@@ -247,6 +248,18 @@ class Player extends Component {
               />
             </div>
           </div>
+          {
+            sharing || (
+              <div>
+                <CustomControl
+                  style={{ top: 20, right: 20 }}
+                />
+                <CustomControl
+                  style={{ top: 40, right: 20 }}
+                />
+              </div>
+            )
+          }
           {
             sharing &&
             <ShareControls
