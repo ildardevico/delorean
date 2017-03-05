@@ -5,7 +5,7 @@ import './styles.scss';
 export default class Layout extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         {this.props.children}
         <Notification />
       </div>
