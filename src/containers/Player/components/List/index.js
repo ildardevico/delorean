@@ -17,7 +17,7 @@ class List extends Component {
           <Col onClick={() => this.props.select(src)} key={i} md={4}>
             <div style={{ backgroundImage: `url(${cover})` }} className='card'>
               <img src='./icons/big_play.png'/>
-              <p>{name}</p>
+              <p>{this.props.inline ? `${name.slice(0, 6)}...`: name}</p>
             </div>
           </Col>
         ))}

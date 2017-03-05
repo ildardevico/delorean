@@ -22,3 +22,29 @@
     }
   }
 }
+
+.inline-list {
+  .list {
+    margin-bottom: 0;
+  }
+  .col-md-12 {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    img {
+      padding: 0;
+    }
+  }
+  .card {
+    width: 140px;
+    height: 70px;
+    margin-bottom: 10px;
+    color: #fff;
+    img {
+      padding: 0;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

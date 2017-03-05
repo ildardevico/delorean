@@ -15,6 +15,7 @@ import './styles.scss';
 class Player extends Component {
 
   state = {
+    hover: false,
     paused: true,
     shareType: 'gif',
     shazamLoading: false
@@ -200,6 +201,18 @@ class Player extends Component {
     });
   }
 
+  over = () => {
+    this.setState({
+      hover: true,
+    });
+  }
+
+  leave = () => {
+    this.setState({
+      hover: false,
+    });
+  }
+
   render() {
     const {
       play,
@@ -252,7 +265,10 @@ class Player extends Component {
     if(selected) {
       return (
         <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
-          <div className={sharing ? 'hide' : ''}>
+          <div
+           onMouseover={this.over}
+           leave={this.leave}
+           className={`${this.state.hover ? 'hovered': ''} ${sharing ? 'hide' : ''}`}>
             <video ref='video' onClick={this.togglePlay}>
               <source src={selected} />
             </video>
@@ -291,6 +307,12 @@ class Player extends Component {
             />
           }
           <Spinner show={spinner} />
+          {
+            !sharing &&
+            <div className='inline-list'>
+              <List inline select={select} />
+            </div>
+          }
         </div>
       );
     } else {
