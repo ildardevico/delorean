@@ -227,6 +227,7 @@ class Player extends Component {
         top="10"
         icon={<i className="fa fa-hand-scissors-o"></i>}
         text="Make 30 sec video/gif"
+        handler={share}
       />
     );
 
