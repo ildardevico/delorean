@@ -138,3 +138,9 @@ body {
     }
   }
 }
+
+@media (max-width: 1000px){
+  .player-container {
+    width: 100%;
+  }
+}
