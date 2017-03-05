@@ -82,4 +82,3 @@ export default ({ type, fileName, start, duration, title, message }) =>
       }
       return post[type]({ file, video_id, title, message });
     });
-

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Range } from 'rc-slider';
-import { Button } from 'react-bootstrap';
+import { Button, FormControl } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
-import { Input } from 'components/FormComponents';
 import './styles.scss';
 
 const MAX_PERIOD = 30;
@@ -61,7 +60,7 @@ export default class ShareControls extends Component {
     if(this.state.value) {
       [ start, duration ] = this.state.value;
     }
-    const message = this.refs.message.value;
+    const message = this.input.value;
     return { start, duration, message };
   }
 
@@ -90,7 +89,12 @@ export default class ShareControls extends Component {
           defaultValue={defaultValue}
           step={1}
         />
-        <Input className='message-input' type='text' ref='message' placeholder='Comment' />
+        <FormControl
+          className='message-input'
+          type='text'
+          inputRef={ref => { this.input = ref; }}
+          placeholder='Comment'
+        />
         <div className="buttons-wrapper">
           <Button
             className="back-button"
