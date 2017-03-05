@@ -268,10 +268,14 @@ class Player extends Component {
     if(selected) {
       return (
         <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
+          <a className="back-to-list-button" onClick={toList}>
+            <i className="material-icons" >arrow_back</i>
+          </a>
           <div
-           onMouseover={this.over}
-           leave={this.leave}
-           className={`${this.state.hover ? 'hovered': ''} ${sharing ? 'hide' : ''}`}>
+            onMouseOver={this.over}
+            onMouseLeave={this.leave}
+            className={`${this.state.hover ? 'hovered': ''} ${sharing ? 'hide' : ''}`}
+          >
             <video ref='video' onClick={this.togglePlay}>
               <source src={selected} />
             </video>
