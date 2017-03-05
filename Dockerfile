@@ -1,5 +1,5 @@
 FROM node
-RUN apt update && apt install ffmpeg libav-tools x264 x265
+RUN apt update && apt install ffmpeg
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN npm i
