@@ -141,7 +141,7 @@ class Player extends Component {
     const { paused, expanded, muted, sharing, duration, currentTime } = this.state;
     const { src } = this.props;
     return (
-      <div className={`player-container ${expanded ? 'expanded': ''}`}>
+      <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
           {
             !sharing ?
             <div>
