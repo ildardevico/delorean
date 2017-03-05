@@ -6,6 +6,7 @@ import { Input } from 'components/FormComponents';
 import './styles.scss';
 
 const MAX_PERIOD = 30;
+
 export default class ShareControls extends Component {
   state = {}
 
@@ -16,6 +17,12 @@ export default class ShareControls extends Component {
       this.refs.right.currentTime = second;
       this.setState({ value });
     }
+  }
+
+  componentDidMount() {
+    const { duration, currentTime } = this.props;
+    this.refs.left.currentTime = currentTime;
+    this.refs.right.currentTime = duration;
   }
 
   sharePart = () => {

@@ -4,6 +4,7 @@ import publishVk from 'utils/publish/vk';
 import Controls from './components/Controls';
 import ShareControls from './components/ShareControls';
 import { shazam } from './actions';
+import Spinner from './components/Spinner';
 import './styles.scss';
 
 const GIF = 'GIF';
@@ -69,7 +70,7 @@ class Player extends Component {
 
     video.addEventListener('timeupdate', () => {
       const now = (video.currentTime/video.duration) * 100;
-      if(this.refs.controls.refs.progressbar) {
+      if(this.refs.controls && this.refs.controls.refs.progressbar) {
         this.refs.controls.refs.progressbar.updateNow(now);
       }
     });
@@ -144,10 +145,10 @@ class Player extends Component {
       back,
       shazam,
      } = this;
-    const { paused, expanded, muted, sharing, duration, currentTime } = this.state;
+    const { paused, expanded, muted, sharing, duration, currentTime, spinner } = this.state;
     const { src } = this.props;
     return (
-      <div className={`player-container ${expanded ? 'expanded': ''}`}>
+      <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
           {
             !sharing ?
             <div>
@@ -179,6 +180,9 @@ class Player extends Component {
               src={src}
               />
             }
+            <div style={{display: `${!spinner ? 'none': 'block'}`}}>
+              <Spinner />
+            </div>
       </div>
     );
   }
