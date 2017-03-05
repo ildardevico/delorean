@@ -12,11 +12,27 @@ export default class ShareControls extends Component {
 
   changePeriod = value => {
     const [ first, second ] = value;
-    if((second - first) <= MAX_PERIOD) {
+
+    if (!this.state.value) {
+      this.setState({ value });
+      return;
+    }
+
+    const draggedFirst = this.state.value[0] !== first;
+    const draggedSecond = !draggedFirst;
+
+    if (second >= (first + MAX_PERIOD) && draggedSecond) {
+      this.refs.left.currentTime = value[0] = second - MAX_PERIOD;
+      this.refs.right.currentTime = second;
+    } else if (first < (second - MAX_PERIOD) && draggedFirst) {
+      this.refs.left.currentTime = first;
+      this.refs.right.currentTime = value[1] = first + MAX_PERIOD;
+    } else {
       this.refs.left.currentTime = first;
       this.refs.right.currentTime = second;
-      this.setState({ value });
     }
+
+    this.setState({ value });
   }
 
   componentDidMount() {
@@ -74,13 +90,12 @@ export default class ShareControls extends Component {
           defaultValue={defaultValue}
           step={1}
         />
-        <Input type='text' ref='message' placeholder='Comment' />
+        <Input className='message-input' type='text' ref='message' placeholder='Comment' />
         <div className="buttons-wrapper">
           <Button
-            className='pull-left'
-            onClick={back}>
-            Back
-          </Button>
+            className="back-button"
+            onClick={back}
+          ><i className="material-icons">arrow_back</i> Back</Button>
           <div className={`switch-wrapper ${shareType}`}>
             <span className="text text-gif">Gif</span>
             <div className="switch" onClick={changeShareType}></div>
@@ -89,14 +104,10 @@ export default class ShareControls extends Component {
           <Button
             className='download-button'
             onClick={this.downloadPart}
-            bsStyle='primary'>
-            Download
-          </Button>
-          <Button
+          >Download <i className="material-icons">file_download</i></Button>
+          <Button 
             onClick={this.sharePart}
-            bsStyle='info'>
-            Share
-          </Button>
+          >Share <i className="material-icons">share</i></Button>
         </div>
       </div>
     );

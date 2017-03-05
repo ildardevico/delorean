@@ -51,6 +51,11 @@ function recogize(host, access_key, secret_key, query_data, query_type) {
       });
       res.on('end', () => {
         // console.log('No more data in response.');
+        if (!acc) {
+          ok([]);
+          return;
+        }
+
         const data = JSON.parse(acc);
         if (!data.metadata) {
           ok([]);
