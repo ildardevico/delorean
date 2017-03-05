@@ -212,7 +212,6 @@ class Player extends Component {
       shareHandler,
       downloadHandler,
       back,
-      shazam,
       shazamHandler,
       toList,
       select,
@@ -228,7 +227,7 @@ class Player extends Component {
       duration,
       currentTime,
       spinner,
-      shazamLoading,
+      shazamLoading
     } = this.state;
 
     const publishControl = (
@@ -243,7 +242,11 @@ class Player extends Component {
     const shazamControl = (
       <CustomControl
         top="60"
-        icon={<i className="material-icons">hearing</i>}
+        icon={
+          shazamLoading
+            ? (<i className="fa fa-spinner fa-spin"></i>)
+            : (<i className="material-icons">hearing</i>)
+        }
         text="Recognize sound"
         handler={shazamHandler}
       />
@@ -260,7 +263,6 @@ class Player extends Component {
               <Controls
                 ref='controls'
                 play={play}
-                share={share}
                 pause={pause}
                 changeVolume={changeVolume}
                 changeDuration={changeDuration}
@@ -268,9 +270,7 @@ class Player extends Component {
                 muted={muted}
                 paused={paused}
                 expand={expand}
-                shazam={shazam}
                 toList={toList}
-                shazamLoading={shazamLoading}
               />
             </div>
             {sharing || publishControl}

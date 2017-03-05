@@ -17,7 +17,7 @@ export const shazam = async (req, res) => {
 
   const ext = path.extname(fileName);
   const endLastName = `${fileName.slice(0, ext.length + 1)}.mp3`;
-  const staticVideo = './static/video/original/';
+  const staticVideo = './static/';
 
   const command = `ffmpeg -ss ${startTime} -i ${staticVideo}${fileName} -t ${endTime} ./static/mp3/${endLastName} -y`;
   if (shell.exec(command, { silent: false }).code !== 0) {
