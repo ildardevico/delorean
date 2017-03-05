@@ -50,6 +50,7 @@ body {
   video {
     display: block;
     width: 100%;
+    cursor: pointer;
     &.left, &.right {
       display: inline;
     }
