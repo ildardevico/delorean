@@ -13,11 +13,11 @@ class List extends Component {
     return (
       <div className='list'>
         <Col md={12}>
-        {this.props.list.map((video, i) => (
-          <Col onClick={() => this.props.select(video)} key={i} md={4}>
-            <div style={{backgroundImage: `url(./icons/prev.jpg)`}} className='card'>
+        {this.props.list.map(({ name, src, cover }, i) => (
+          <Col onClick={() => this.props.select(src)} key={i} md={4}>
+            <div style={{ backgroundImage: `url(${cover})` }} className='card'>
               <img src='./icons/big_play.png'/>
-              <p>{video}</p>
+              <p>{name}</p>
             </div>
           </Col>
         ))}
