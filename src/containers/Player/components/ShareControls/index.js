@@ -6,6 +6,7 @@ import { Input } from 'components/FormComponents';
 import './styles.scss';
 
 const MAX_PERIOD = 30;
+
 export default class ShareControls extends Component {
   state = {}
 

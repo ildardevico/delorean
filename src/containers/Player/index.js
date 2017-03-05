@@ -68,7 +68,7 @@ class Player extends Component {
 
     video.addEventListener('timeupdate', () => {
       const now = (video.currentTime/video.duration) * 100;
-      if(this.refs.controls.refs.progressbar) {
+      if(this.refs.controls && this.refs.controls.refs.progressbar) {
         this.refs.controls.refs.progressbar.updateNow(now);
       }
     });
