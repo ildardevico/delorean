@@ -122,7 +122,7 @@ class Player extends Component {
   }
 
   shazam = () => {
-    this.setState({ shazamLoading: true })
+    this.setState({ shazamLoading: true });
     this.props.shazam({ fileName: this.state.selected, time: this.refs.video.currentTime || 0 })
     .then(({ tracks }) => {
       tracks.forEach(track => {
@@ -132,7 +132,7 @@ class Player extends Component {
         }));
       });
     })
-    .then(() => this.setState({ shazamLoading: false }))
+    .then(() => this.setState({ shazamLoading: false }));
     //TODO ebanut' filename
   }
 
