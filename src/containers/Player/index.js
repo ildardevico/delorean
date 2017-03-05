@@ -14,7 +14,8 @@ class Player extends Component {
 
   state = {
     paused: true,
-    shareType: 'gif'
+    shareType: 'gif',
+    shazamLoading: false
   }
 
   changeShareType = () => {
@@ -137,6 +138,7 @@ class Player extends Component {
   }
 
   shazam = () => {
+    this.setState({ shazamLoading: true })
     this.props.shazam({ fileName: this.props.fileName || 'GoPro.mp4', time: this.refs.video.currentTime || 0 })
     .then(({ tracks }) => {
       tracks.forEach(track => {
@@ -145,7 +147,8 @@ class Player extends Component {
           message: track.artists.join(' ') + track.album
         }));
       });
-    });
+    })
+    .then(() => this.setState({ shazamLoading: false }))
     //TODO ebanut' filename
   }
 
@@ -214,7 +217,20 @@ class Player extends Component {
       toList,
       select,
      } = this;
-    const { shareType, selected, paused, expanded, muted, sharing, duration, currentTime, spinner } = this.state;
+
+    const {
+      shareType,
+      selected,
+      paused,
+      expanded,
+      muted,
+      sharing,
+      duration,
+      currentTime,
+      spinner,
+      shazamLoading,
+    } = this.state;
+
     const src  = `./video/original/${selected}`;
     if(selected) {
       return (
@@ -237,6 +253,7 @@ class Player extends Component {
                 expand={expand}
                 shazam={shazam}
                 toList={toList}
+                shazamLoading={shazamLoading}
               />
             </div>
           </div>
