@@ -5,6 +5,7 @@ import 'rc-slider/assets/index.css';
 import './styles.scss';
 
 const MAX_PERIOD = 30;
+const MIN_PERIOD = 5;
 
 export default class ShareControls extends Component {
   state = {}
@@ -16,6 +17,8 @@ export default class ShareControls extends Component {
       this.setState({ value });
       return;
     }
+
+    if ((second - first) < MIN_PERIOD) return;
 
     const draggedFirst = this.state.value[0] !== first;
     const draggedSecond = !draggedFirst;

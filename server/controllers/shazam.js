@@ -9,7 +9,8 @@ api.setConfig({
 });
 
 export const shazam = async (req, res) => {
-  const { fileName, time } = req.body;
+  let { fileName, time } = req.body;
+  fileName = path.basename(fileName);
 
   const prevPoint = time - 5;
   const endTime = time + 5;
@@ -17,7 +18,7 @@ export const shazam = async (req, res) => {
 
   const ext = path.extname(fileName);
   const endLastName = `${fileName.slice(0, ext.length + 1)}.mp3`;
-  const staticVideo = './static/';
+  const staticVideo = './static/video/original/';
 
   const command = `ffmpeg -ss ${startTime} -i ${staticVideo}${fileName} -t ${endTime} ./static/mp3/${endLastName} -y`;
   if (shell.exec(command, { silent: false }).code !== 0) {
