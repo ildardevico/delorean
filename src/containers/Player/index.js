@@ -11,9 +11,7 @@ import './styles.scss';
 
 const notificationOpts = {
   title: 'Shared!',
-  message: 'Your video was shared',
-  position: 'tr',
-  autoDismiss: 0
+  message: 'Your video was shared'
 };
 
 const GIF = 'GIF';
@@ -135,7 +133,16 @@ class Player extends Component {
   }
 
   shazam = () => {
-    this.props.shazam({ fileName: 'GoPro.mp4', time: this.state.currentTime }); //TODO ebanut' filename
+    this.props.shazam({ fileName: 'GoPro.mp4', time: this.state.currentTime })
+    .then(({ res: data }) => {
+      data.forEach(track => {
+        this.props.showSnack(Notifications.success({
+          title: track.title,
+          message: track.artists.join(' ') + track.album
+        }));
+      });
+    });
+    //TODO ebanut' filename
   }
 
   share = () => {
