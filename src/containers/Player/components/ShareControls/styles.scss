@@ -15,6 +15,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  button {
+    background: #fff;
+    border: 2px solid #58008c;
+    border-radius: 5px;
+    color: #58008c;
+    transition: .3s;
+    &:hover {
+      background: #58008c;
+      border: 2px solid #58008c;
+      color: #fff;
+    }
+  }
   .download-button {
     margin-right: 10px;
   }
