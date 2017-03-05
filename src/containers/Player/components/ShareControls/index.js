@@ -104,8 +104,8 @@ export default class ShareControls extends Component {
           <Button
             className='download-button'
             onClick={this.downloadPart}
-          >Download <i className="material-icons">file_download</i></Button>
-          <Button 
+          >Preview <i className="fa fa-eye" aria-hidden="true"></i></Button>
+          <Button
             onClick={this.sharePart}
           >Share <i className="material-icons">share</i></Button>
         </div>
