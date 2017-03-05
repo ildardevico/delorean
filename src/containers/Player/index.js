@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Notifications from 'react-notification-system-redux';
 import publishVk from 'utils/publish/vk';
+import downloadFile from 'utils/publish/download';
 import Controls from './components/Controls';
 import ShareControls from './components/ShareControls';
 import { shazam } from './actions';
@@ -35,7 +36,7 @@ class Player extends Component {
       start,
       duration,
       message,
-      title: title
+      title
     }).then(() => {
       this.setState({ spinner: false });
       this.props.showSnack(Notifications.success({
@@ -54,54 +55,30 @@ class Player extends Component {
 
   downloadHandler = ({ duration, start }) => {
     console.log('downloadHandler', { duration, start });
-    // const { shareType } = this.state;
-    // const { fileName = '', title = '' } = this.props;
-    // this.setState({ spinner: true });
-    //
-    // publishVk({
-    //   type: shareType,
-    //   fileName: fileName || 'GoPro.mp4',
-    //   start,
-    //   duration,
-    //   message,
-    //   title: title
-    // }).then(() => {
-    //   this.setState({ spinner: false });
-    //   this.props.showSnack(Notifications.success({
-    //     title: 'Success!',
-    //     message: `Your ${shareType === 'gif' ? 'Gif' : 'Video'} was shared!`
-    //   }));
-    //   this.back();
-    // }).catch(error => {
-    //   this.setState({ spinner: false });
-    //   this.props.showSnack(Notifications.error({
-    //     title: 'Error!',
-    //     message: error
-    //   }));
-    // });
-  }
+    const { shareType } = this.state;
+    const { fileName = '' } = this.props;
+    this.setState({ spinner: true });
 
-  // loadGif({ duration, start, fileName, title, message = '' }) {
-  //   return publishVk({
-  //     type: 'gif',
-  //     fileName: fileName || 'GoPro.mp4',
-  //     start,
-  //     duration,
-  //     message,
-  //     title: title || 'hello-tytle',
-  //   });
-  // }
-  //
-  // loadVideo({ duration, start, fileName, title, message = '' }) {
-  //   return publishVk({
-  //     type: 'video',
-  //     fileName,
-  //     start,
-  //     duration,
-  //     message,
-  //     title,
-  //   });
-  // }
+    downloadFile({
+      type: shareType,
+      fileName: fileName || 'GoPro.mp4',
+      start,
+      duration
+    }).then(path => {
+      this.setState({ spinner: false });
+      this.props.showSnack(Notifications.success({
+        title: 'Success!',
+        message: `Your ${shareType === 'gif' ? 'Gif' : 'Video'} was created!`
+      }));
+      window.open(path);
+    }).catch(error => {
+      this.setState({ spinner: false });
+      this.props.showSnack(Notifications.error({
+        title: 'Error!',
+        message: error
+      }));
+    });
+  }
 
   componentWillUnmount() {
     const { video } = this.refs;
@@ -123,6 +100,15 @@ class Player extends Component {
     this.refs.video.pause();
   }
 
+  togglePlay = () => {
+    const { paused } = this.refs.video;
+    if (paused) {
+      this.play();
+    } else {
+      this.pause();
+    }
+  }
+
   changeVolume = volume => {
     this.refs.video.volume = volume;
   }
@@ -139,7 +125,7 @@ class Player extends Component {
 
   shazam = () => {
     this.setState({ shazamLoading: true })
-    this.props.shazam({ fileName: this.props.fileName || 'GoPro.mp4', time: this.refs.video.currentTime || 0 })
+    this.props.shazam({ fileName: this.state.selected, time: this.refs.video.currentTime || 0 })
     .then(({ tracks }) => {
       tracks.forEach(track => {
         this.props.showSnack(Notifications.success({
@@ -236,8 +222,8 @@ class Player extends Component {
       return (
         <div className={`player-container ${expanded && !sharing ? 'expanded': ''}`}>
           <div className={sharing ? 'hide' : ''}>
-            <video ref='video'>
-              <source src={src || './video/original/GoPro.mp4'} />
+            <video ref='video' onClick={this.togglePlay}>
+              <source src={src} />
             </video>
             <div className='controls-container'>
               <Controls
