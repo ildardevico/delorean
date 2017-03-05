@@ -25,5 +25,5 @@ export const shazam = async (req, res) => {
     shell.exit(1);
   }
   const tracks = await api.recogizer(`./static/mp3/${endLastName}`);
-  res.send(tracks);
+  res.send({ tracks });
 };
