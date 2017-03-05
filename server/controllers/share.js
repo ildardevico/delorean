@@ -25,7 +25,11 @@ export const publish = async (req, res) => {
 };
 
 export const download = async (req, res) => {
-  const { fileName, start, duration, type } = req.body;
+  const { fileName, start, type } = req.body;
+
+  let { duration } = req.body;
+  duration = duration - start;
+
   let path;
 
   switch (type) {
