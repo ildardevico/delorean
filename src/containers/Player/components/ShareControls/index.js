@@ -63,7 +63,7 @@ export default class ShareControls extends Component {
             defaultValue={defaultValue}
             step={1}
           />
-          <Input type='text' ref='message' placeholder='Comment' />
+          <Input className='message-input' type='text' ref='message' placeholder='Comment' />
             <Button
               style={{ marginTop: '5px' }}
               className='pull-left'
