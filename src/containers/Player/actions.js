@@ -1,8 +1,9 @@
-import { ADD_TO_COUNTER } from './constants';
+import { SHAZAM } from './constants';
+import createPromiseAction from 'utils/createPromiseAction';
+import { callApi } from 'utils/callApi';
 
-export function increaseCounter(count) {
-  return {
-    type: ADD_TO_COUNTER,
-    count
-  };
-}
+
+export const shazam = createPromiseAction(
+  body => callApi('shazam', { method: 'POST', body}),
+  SHAZAM,
+);

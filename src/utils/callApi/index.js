@@ -62,7 +62,7 @@ export function callApi(url: string, params: RequestOptions | any): Promise<Resp
   const { method, headers, body } = preparedParams;
   const { API_HOST } = config;
   return client(
-    `${API_HOST}/${preparedUrl}/`,
+    `http://${API_HOST}/${preparedUrl}/`,
     {
       method: method || 'GET',
       headers,

@@ -11,6 +11,7 @@ class Controls extends Component {
       mute,
       paused,
       expand,
+      shazam,
       duration,
       currentTime,
       changeDuration,
@@ -37,7 +38,7 @@ class Controls extends Component {
             <span>
               <i onClick={share} className="material-icons">screen_share</i>
             </span>
-            <span>
+            <span onClick={shazam}>
               <i className="material-icons">audiotrack</i>
             </span>
             <span onClick={expand}>

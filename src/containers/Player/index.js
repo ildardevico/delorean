@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import publishVk from 'utils/publish/vk';
 import Controls from './components/Controls';
 import ShareControls from './components/ShareControls';
+import { shazam } from './actions';
 import './styles.scss';
 
 const GIF = 'GIF';
@@ -109,6 +110,10 @@ class Player extends Component {
     });
   }
 
+  shazam = () => {
+    this.props.shazam({ fileName: 'GoPro.mp4', time: this.state.currentTime }); //TODO ebanut' filename
+  }
+
   share = () => {
     this.setState({
       duration: Math.round(this.refs.video.duration),
@@ -137,6 +142,7 @@ class Player extends Component {
       share,
       shareHandler,
       back,
+      shazam,
      } = this;
     const { paused, expanded, muted, sharing, duration, currentTime } = this.state;
     const { src } = this.props;
@@ -160,6 +166,7 @@ class Player extends Component {
                  muted={muted}
                  paused={paused}
                  expand={expand}
+                 shazam={shazam}
                  />
                </div>
              </div>
@@ -178,5 +185,8 @@ class Player extends Component {
 }
 
 export default connect(
-  state => state
+  state => state,
+  dispatch => ({
+    shazam: data => dispatch(shazam(data))
+  })
 )(Player);
