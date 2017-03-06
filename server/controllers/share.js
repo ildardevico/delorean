@@ -4,6 +4,7 @@ import { uploadData } from '../utils/uploadApi';
 
 export const publish = async (req, res) => {
   const { fileName, start, uploadUrl, type } = req.body;
+  console.log(`Publish ${type} ${new Date()}`);
 
   let { duration } = req.body;
   duration = duration - start;
@@ -26,6 +27,7 @@ export const publish = async (req, res) => {
 
 export const download = async (req, res) => {
   const { fileName, start, type } = req.body;
+  console.log(`Download ${type} ${new Date()}`);
 
   let { duration } = req.body;
   duration = duration - start;

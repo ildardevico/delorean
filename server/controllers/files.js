@@ -1,4 +1,5 @@
 export const list = async (req, res) => {
+  console.log(`GET list ${new Date()}`);
   const dir = [
     { name: `GoPro HERO3: Almost as Epic as the HERO3+`, src: './video/original/GoPro.mp4', cover: './covers/GoPro.png' },
     { name: `GoPro Music: Tony Royster Jr. - Drummer's Odyssey`, src: './video/original/gopro_drums.mp4', cover: './covers/drums.png' },

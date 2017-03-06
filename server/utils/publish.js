@@ -7,7 +7,7 @@ export const cut = (fileName, startTime, endTime) => {
   fileName = path.basename(fileName)
   const command = `ffmpeg -i ${staticFolder}original/${fileName} -ss ${secondsToHms(startTime)} -t ${secondsToHms(endTime)} -c copy ${staticFolder}cutted/${fileName} -y`;
 
-  if (shell.exec(command, { silent: false }).code !== 0) {
+  if (shell.exec(command, { silent: true }).code !== 0) {
     shell.echo('Command execution error cut');
     shell.exit(1);
   }
@@ -20,7 +20,7 @@ export const toGif = (fileName, startTime, endTime) => {
   const endLastName = `${fileName.slice(0, ext.length + 1)}.gif`;
 
   const command = `ffmpeg -ss ${secondsToHms(startTime)} -i ${staticFolder}original/${fileName} -t ${secondsToHms(endTime)} -s 480x275 -r 18 ${staticFolder}gifs/${endLastName} -y`;
-  if (shell.exec(command, { silent: false }).code !== 0) {
+  if (shell.exec(command, { silent: true }).code !== 0) {
     shell.echo('Command execution error gif');
     shell.exit(1);
   }

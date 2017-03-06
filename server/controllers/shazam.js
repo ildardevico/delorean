@@ -10,6 +10,7 @@ api.setConfig({
 
 export const shazam = async (req, res) => {
   let { fileName, time } = req.body;
+  console.log(`Shazam ${fileName} ${time} ${new Date()}`);
   fileName = path.basename(fileName);
 
   const prevPoint = time - 5;
@@ -21,7 +22,7 @@ export const shazam = async (req, res) => {
   const staticVideo = './static/video/original/';
 
   const command = `ffmpeg -ss ${startTime} -i ${staticVideo}${fileName} -t ${endTime} ./static/mp3/${endLastName} -y`;
-  if (shell.exec(command, { silent: false }).code !== 0) {
+  if (shell.exec(command, { silent: true }).code !== 0) {
     shell.echo('Command execution error');
     shell.exit(1);
   }
